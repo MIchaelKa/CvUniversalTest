@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--Picker View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="PickerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-q2-auX">
+                                <rect key="frame" x="140" y="219" width="320" height="162"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap screen when you done" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqW-eC-hTo">
+                                <rect key="frame" x="203" y="560" width="195" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="YXe-q2-auX" secondAttribute="centerX" id="DtB-Mt-uPu"/>
+                            <constraint firstAttribute="centerX" secondItem="kqW-eC-hTo" secondAttribute="centerX" id="TPS-7J-h2x"/>
+                            <constraint firstAttribute="centerY" secondItem="YXe-q2-auX" secondAttribute="centerY" id="kN8-W4-7j3"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="kqW-eC-hTo" secondAttribute="bottom" constant="20" id="oVt-ER-F7y"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="de7-qR-6Qh" appends="YES" id="JuK-qe-RRc"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="pickerView" destination="YXe-q2-auX" id="VYg-VP-tA1"/>
+                        <segue destination="WQ8-jI-Jzl" kind="presentation" identifier="Camera controller" modalTransitionStyle="crossDissolve" id="FwN-HX-8i3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="de7-qR-6Qh">
+                    <connections>
+                        <action selector="tap:" destination="vXZ-lx-hvc" id="hfD-7g-zKp"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="15" y="505"/>
+        </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="Ssj-SJ-8WN">
+            <objects>
+                <viewController id="WQ8-jI-Jzl" customClass="CameraViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CHk-IW-1oe"/>
+                        <viewControllerLayoutGuide type="bottom" id="hGT-zq-GD2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OpQ-QD-mxg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="Zej-gU-NHc" kind="presentation" identifier="Result controller" modalTransitionStyle="crossDissolve" id="RdS-3d-ifo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ceR-ot-Yhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="739" y="505"/>
+        </scene>
+        <!--Result View Controller-->
+        <scene sceneID="yCs-2J-QxX">
+            <objects>
+                <viewController id="Zej-gU-NHc" customClass="ResultViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CJb-g7-XcZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="jMe-8S-WB1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aez-qc-ACq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHE-bU-HdE">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LHE-bU-HdE" firstAttribute="bottom" secondItem="jMe-8S-WB1" secondAttribute="top" id="ME1-bR-lcN"/>
+                            <constraint firstAttribute="trailing" secondItem="LHE-bU-HdE" secondAttribute="trailing" id="Vtt-YO-LtM"/>
+                            <constraint firstItem="LHE-bU-HdE" firstAttribute="top" secondItem="aez-qc-ACq" secondAttribute="top" id="saD-ae-ZEo"/>
+                            <constraint firstItem="LHE-bU-HdE" firstAttribute="leading" secondItem="aez-qc-ACq" secondAttribute="leading" id="uos-3g-v1e"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="resultScrollView" destination="LHE-bU-HdE" id="JIB-2N-UFy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YBA-Da-Uoc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1453" y="505"/>
+        </scene>
+    </scenes>
+</document>
