@@ -26,19 +26,6 @@
 
 @implementation PickerViewController
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"Camera controller"])
-    {
-        CameraViewController* cvc = segue.destinationViewController;
-        if (cvc.testSuite == nil)
-        {
-            cvc.testSuite = self.testSuite;
-        }
-        cvc.testSuite.currentTestIndex = self.currentTestIndex;
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -13,6 +13,9 @@
     #import <opencv2/opencv.hpp>
 #endif
 
+#import "ResultViewController.h"
+#import "UIStoryboard+CvTest.h"
+
 #import "UIButton+CircularStyle.h"
 #import "UILabel+HeaderStyle.h"
 #import "AnimatedPathView.h"
@@ -209,9 +212,9 @@
         [self.videoCamera stop];
         [self.testSuite processImageWithCurrentTest: currentFrame];
         
-        UIStoryboard *sb = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+        self.resultViewController = [[UIStoryboard mainStoryboard]
+            instantiateViewControllerWithIdentifier: @"ResultViewController"];
         
-        self.resultViewController = [sb instantiateViewControllerWithIdentifier: @"ResultViewController"];
         self.resultViewController.resultImageView = self.resultImageView;
         
         [self presentViewController: self.resultViewController
