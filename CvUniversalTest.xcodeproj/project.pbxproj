@@ -25,6 +25,7 @@
 		4C1AEAFD1A180B700094606A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEAFC1A180B700094606A /* Settings.storyboard */; };
 		4C438AC51A0E78D000CE1D13 /* AnimatedPathView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */; };
 		4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */; };
+		4C635FC21A1953C600164608 /* FindContoursViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C635FC11A1953C600164608 /* FindContoursViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,8 @@
 		4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AnimatedPathView.mm; sourceTree = "<group>"; };
 		4C635FBD1A192EA300164608 /* UIStoryboard+CvTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+CvTest.h"; sourceTree = "<group>"; };
 		4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+CvTest.m"; sourceTree = "<group>"; };
+		4C635FC01A1953C600164608 /* FindContoursViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindContoursViewController.h; sourceTree = "<group>"; };
+		4C635FC11A1953C600164608 /* FindContoursViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FindContoursViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +161,8 @@
 			children = (
 				4C0E022F19FB9CD000EF0736 /* TestSuite.h */,
 				4C0E023019FB9CD000EF0736 /* TestSuite.mm */,
+				4C635FC01A1953C600164608 /* FindContoursViewController.h */,
+				4C635FC11A1953C600164608 /* FindContoursViewController.mm */,
 			);
 			name = TestSuite;
 			path = CvUniversalTest/TestSuite;
@@ -250,6 +255,7 @@
 				4C0E022819F9921D00EF0736 /* UIButton+CircularStyle.m in Sources */,
 				4C0E023119FB9CD000EF0736 /* TestSuite.mm in Sources */,
 				4C0E021C19F97FF400EF0736 /* CameraViewController.mm in Sources */,
+				4C635FC21A1953C600164608 /* FindContoursViewController.mm in Sources */,
 				4C438AC51A0E78D000CE1D13 /* AnimatedPathView.mm in Sources */,
 				4C0E01F719F9710200EF0736 /* AppDelegate.m in Sources */,
 				4C0E023719FD134B00EF0736 /* UILabel+HeaderStyle.m in Sources */,

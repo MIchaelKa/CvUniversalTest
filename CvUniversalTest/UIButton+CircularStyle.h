@@ -10,8 +10,10 @@
 
 @interface UIButton (CircularStyle)
 
-+ (UIButton *)circularButtonAtPoint: (CGPoint)point
-                     withImageNamed: (NSString *)imageName;
++ (UIButton *)circularButtonWithImageNamed: (NSString *)imageName;
+
++ (NSInteger)buttonSize;
++ (NSInteger)buttonInterval;
 
 - (void)setPositionAtPoint: (CGPoint)point;
 

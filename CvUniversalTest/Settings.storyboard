@@ -2,12 +2,13 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Settings-->
         <scene sceneID="yb7-mb-Jtk">
             <objects>
-                <tableViewController storyboardIdentifier="Settings" id="Bxr-on-rfH" sceneMemberID="viewController">
+                <tableViewController id="Bxr-on-rfH" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ugR-ev-1MT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,8 +22,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ci-QF-eeu">
-                                                    <rect key="frame" x="523" y="6" width="51" height="31"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ci-QF-eeu">
+                                                    <rect key="frame" x="538" y="6" width="51" height="31"/>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Canny edge detection" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tia-JJ-8E0">
                                                     <rect key="frame" x="13" y="11" width="169" height="21"/>
@@ -31,6 +32,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="0Ci-QF-eeu" secondAttribute="bottom" constant="-2" id="7om-7V-82s"/>
+                                                <constraint firstItem="0Ci-QF-eeu" firstAttribute="top" secondItem="Is1-Lm-xKL" secondAttribute="topMargin" constant="-2" id="Gbo-m5-NHC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="0Ci-QF-eeu" secondAttribute="trailing" constant="5" id="K7K-o2-jSp"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -59,8 +65,27 @@
                             <outlet property="delegate" destination="Bxr-on-rfH" id="24I-6j-hrO"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="qBb-SE-GXH"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EbE-hm-mxm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-278" y="101"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PCi-40-jNF">
+            <objects>
+                <navigationController storyboardIdentifier="SettingsViewController" automaticallyAdjustsScrollViewInsets="NO" id="e5M-wT-a9D" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cxB-NS-smV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Bxr-on-rfH" kind="relationship" relationship="rootViewController" id="Zd8-xE-8eH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VH1-gG-gLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1090" y="101"/>
         </scene>

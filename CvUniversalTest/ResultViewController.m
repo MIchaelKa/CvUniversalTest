@@ -50,11 +50,11 @@
 - (void)setupButtons
 {
     CGSize viewSize = self.view.bounds.size;
-    CGPoint point = CGPointMake(viewSize.width / 2,
-                                viewSize.height - 50);
+    CGPoint point = CGPointMake(viewSize.width / 2 - [UIButton buttonSize] / 2,
+                                viewSize.height - 80);
     // Undo
-    UIButton* undoButton = [UIButton circularButtonAtPoint: point
-                                            withImageNamed: @"Undo"];
+    UIButton* undoButton = [UIButton circularButtonWithImageNamed: @"Undo"];
+    [undoButton setPositionAtPoint: point];
     [undoButton addTarget: self
                    action: @selector(backToCameraView)
          forControlEvents: UIControlEventTouchUpInside];

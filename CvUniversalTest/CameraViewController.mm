@@ -29,12 +29,9 @@
 @property (nonatomic, strong) CvVideoCamera* videoCamera;
 @property (nonatomic, strong) UIImageView*   resultImageView;
 
-@property (nonatomic, strong) UIButton* undoButton;
-@property (nonatomic, strong) UIButton* startButton;
-
 @property (nonatomic, strong) UILabel* testNameLabel;
 
-@property (nonatomic, strong) AnimatedPathView* animatedPathView;
+@property (nonatomic, strong) AnimatedPathView* animatedPathView; // to TrackObjectViewController
 
 @property (nonatomic, strong) ResultViewController* resultViewController;
 
@@ -135,12 +132,7 @@
 {
     if (!_undoButton)
     {
-        CGSize viewSize = self.view.bounds.size;
-        CGPoint point = CGPointMake(viewSize.width / 2 - 40,
-                                    viewSize.height - 50);
-        
-        _undoButton = [UIButton circularButtonAtPoint: point
-                                       withImageNamed: @"Undo"];
+        _undoButton = [UIButton circularButtonWithImageNamed: @"Undo"];
         
         [_undoButton addTarget: self
                         action: @selector(backToPickerView)
@@ -154,12 +146,7 @@
 {
     if (!_startButton)
     {
-        CGSize viewSize = self.view.bounds.size;
-        CGPoint point = CGPointMake(viewSize.width / 2 + 40,
-                                    viewSize.height - 50);
-        
-        _startButton = [UIButton circularButtonAtPoint: point
-                                        withImageNamed: @"Start"];
+        _startButton = [UIButton circularButtonWithImageNamed: @"Start"];
         
         [_startButton addTarget: self
                          action: @selector(startTest)
@@ -167,6 +154,20 @@
     }
     return _startButton;
 }
+
+- (UIButton *)settingsButton
+{
+    if (!_settingsButton)
+    {
+        _settingsButton = [UIButton circularButtonWithImageNamed: @"Settings"];
+        
+        [_settingsButton addTarget: self
+                            action: @selector(showSettings)
+                  forControlEvents: UIControlEventTouchUpInside];
+    }
+    return _settingsButton;
+}
+
 
 - (UILabel *)testNameLabel
 {
@@ -176,11 +177,6 @@
                                         onViewWithSize: self.view.bounds.size];
         
     }
-    else
-    {
-        _testNameLabel.text = self.testSuite.currentTestName;
-    }
-    
     return _testNameLabel;
 }
 
@@ -197,13 +193,37 @@
 
 - (void)setupUI
 {
+    // Labels
+    [self.view addSubview: self.testNameLabel];
+    /*
     // Views
     [self.view addSubview: self.animatedPathView];
     // Buttons
     [self.view addSubview: self.undoButton];
     [self.view addSubview: self.startButton];
-    // Labels
-    [self.view addSubview: self.testNameLabel];    
+     */    
+}
+
+- (void)addButtons: (NSArray *)buttons
+{
+    NSInteger buttonSize = [UIButton buttonSize];
+    NSInteger buttonInterval = [UIButton buttonInterval];
+    NSUInteger buttonCount = buttons.count;
+    
+    NSInteger allButtonWidth = (buttonSize * buttonCount) +
+                               (buttonInterval * (buttonCount - 1));
+    
+    CGSize viewSize = self.view.bounds.size;
+    CGPoint point = CGPointMake(viewSize.width / 2 - allButtonWidth / 2,
+                                viewSize.height - 80);
+    
+    for (NSUInteger i = 0; i < buttonCount; i++)
+    {
+        UIButton* button = [buttons objectAtIndex: i];
+        [button setPositionAtPoint: point];
+        point.x += buttonSize + buttonInterval;
+        [self.view addSubview: button];
+    }    
 }
 
 - (void)backToPickerView
@@ -233,6 +253,17 @@
                            animated: YES
                          completion: nil];
     }
+}
+
+- (void)showSettings
+{
+    UINavigationController* settingsViewController =
+        [[UIStoryboard settingsStoryboard] instantiateViewControllerWithIdentifier: @"SettingsViewController"];
+    settingsViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [self presentViewController: settingsViewController
+                       animated: YES
+                     completion: nil];
 }
 
 - (void)orientationDidChange: (NSNotification *)notification

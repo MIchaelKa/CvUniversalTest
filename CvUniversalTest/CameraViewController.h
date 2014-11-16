@@ -18,7 +18,14 @@
 @interface CameraViewController : UIViewController
 
 @property (weak, nonatomic) TestSuite* testSuite;
-
 @property (weak, nonatomic) id<CameraViewControllerDelegate> delegate;
+
+// UI - to separate view controller!???
+@property (nonatomic, strong) UIButton* undoButton;
+@property (nonatomic, strong) UIButton* startButton;
+@property (nonatomic, strong) UIButton* settingsButton;
+
+- (void)setupUI;
+- (void)addButtons: (NSArray *)buttons;
 
 @end

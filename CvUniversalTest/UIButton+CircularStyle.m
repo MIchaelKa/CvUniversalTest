@@ -11,15 +11,13 @@
 @implementation UIButton (CircularStyle)
 
 static const int CIRCULAR_BUTTON_SIZE = 60;
+static const int CIRCULAR_BUTTON_INTERVAL = 20;
 
-+ (UIButton *)circularButtonAtPoint: (CGPoint)point
-                     withImageNamed: (NSString *)imageName
++ (UIButton *)circularButtonWithImageNamed: (NSString *)imageName
 {
     UIButton* customButton = [UIButton buttonWithType: UIButtonTypeCustom];
     
     CGRect frame;
-    frame.origin = CGPointMake(point.x - CIRCULAR_BUTTON_SIZE / 2,
-                               point.y - CIRCULAR_BUTTON_SIZE / 2);
     frame.size = CGSizeMake(CIRCULAR_BUTTON_SIZE, CIRCULAR_BUTTON_SIZE);
     
     [customButton setFrame: frame];
@@ -36,10 +34,20 @@ static const int CIRCULAR_BUTTON_SIZE = 60;
 - (void)setPositionAtPoint: (CGPoint)point
 {
     CGRect frame = self.frame;
-    frame.origin = CGPointMake(point.x - CIRCULAR_BUTTON_SIZE / 2,
-                               point.y - CIRCULAR_BUTTON_SIZE / 2);
+    frame.origin = point;
+    frame.size = CGSizeMake(CIRCULAR_BUTTON_SIZE, CIRCULAR_BUTTON_SIZE);
     
     [self setFrame: frame];
+}
+
++ (NSInteger)buttonSize
+{
+    return CIRCULAR_BUTTON_SIZE;
+}
+
++ (NSInteger)buttonInterval
+{
+    return CIRCULAR_BUTTON_INTERVAL;
 }
 
 @end

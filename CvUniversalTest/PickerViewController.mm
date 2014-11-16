@@ -9,6 +9,7 @@
 #import "PickerViewController.h"
 
 #import "TestSuite/TestSuite.h"
+#import "TestSuite/FindContoursViewController.h"
 
 @interface PickerViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -54,7 +55,7 @@
 {
     if (!_testViewController)
     {
-        _testViewController = [[CameraViewController alloc] init];
+        _testViewController = [[FindContoursViewController alloc] init];
         _testViewController.delegate = self;
         _testViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     }
