@@ -20,6 +20,8 @@
 @property (strong, nonatomic) NSArray* availableTestNames;
 @property (nonatomic) NSInteger currentTestIndex;
 
+@property (strong, nonatomic) CameraViewController* cameraViewController;
+
 @end
 
 @implementation PickerViewController
@@ -57,7 +59,16 @@
 
 - (IBAction)tap:(UITapGestureRecognizer *)sender
 {
-    [self performSegueWithIdentifier: @"Camera controller" sender: self];
+    self.cameraViewController = [[CameraViewController alloc] init];
+    if (self.cameraViewController.testSuite == nil)
+    {
+        self.cameraViewController.testSuite = self.testSuite;
+    }
+    self.cameraViewController.testSuite.currentTestIndex = self.currentTestIndex;
+    
+    [self presentViewController: self.cameraViewController
+                       animated: YES
+                     completion: nil];
 }
 
 #pragma mark UIPickerViewDelegate

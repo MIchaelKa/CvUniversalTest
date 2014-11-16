@@ -33,18 +33,11 @@
 
 @property (nonatomic, strong) AnimatedPathView* animatedPathView;
 
+@property (nonatomic, strong) ResultViewController* resultViewController;
+
 @end
 
 @implementation CameraViewController
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"Result controller"])
-    {
-        ResultViewController* rvc = segue.destinationViewController;        
-        rvc.resultImageView = self.resultImageView;
-    }
-}
 
 - (UIImageView *)resultImageView
 {
@@ -214,8 +207,16 @@
     else
     {
         [self.videoCamera stop];
-        [self.testSuite processImageWithCurrentTest: currentFrame];        
-        [self performSegueWithIdentifier: @"Result controller" sender: self];
+        [self.testSuite processImageWithCurrentTest: currentFrame];
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+        
+        self.resultViewController = [sb instantiateViewControllerWithIdentifier: @"ResultViewController"];
+        self.resultViewController.resultImageView = self.resultImageView;
+        
+        [self presentViewController: self.resultViewController
+                           animated: YES
+                         completion: nil];
     }
 }
 

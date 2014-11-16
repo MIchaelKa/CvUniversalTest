@@ -22,6 +22,7 @@
 		4C0E023119FB9CD000EF0736 /* TestSuite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E023019FB9CD000EF0736 /* TestSuite.mm */; };
 		4C0E023719FD134B00EF0736 /* UILabel+HeaderStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E023619FD134B00EF0736 /* UILabel+HeaderStyle.m */; };
 		4C0E023A19FD31CF00EF0736 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E023919FD31CF00EF0736 /* ResultViewController.m */; };
+		4C1AEAFD1A180B700094606A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEAFC1A180B700094606A /* Settings.storyboard */; };
 		4C438AC51A0E78D000CE1D13 /* AnimatedPathView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		4C0E023619FD134B00EF0736 /* UILabel+HeaderStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+HeaderStyle.m"; sourceTree = "<group>"; };
 		4C0E023819FD31CF00EF0736 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		4C0E023919FD31CF00EF0736 /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		4C1AEAFC1A180B700094606A /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		4C438AC31A0E78D000CE1D13 /* AnimatedPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedPathView.h; sourceTree = "<group>"; };
 		4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AnimatedPathView.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,9 +94,7 @@
 				4C0E022919FAD5AE00EF0736 /* UIElements */,
 				4C0E022A19FAD5C400EF0736 /* Controllers */,
 				4C0E022B19FAD5FA00EF0736 /* TestSuite */,
-				4C0E01FB19F9710200EF0736 /* Main.storyboard */,
-				4C0E01FE19F9710200EF0736 /* Images.xcassets */,
-				4C0E020019F9710200EF0736 /* LaunchScreen.xib */,
+				4C1AEAFB1A180B200094606A /* Storyboards */,
 				4C0E01F119F9710200EF0736 /* Supporting Files */,
 			);
 			path = CvUniversalTest;
@@ -107,6 +107,8 @@
 				4C0E01F619F9710200EF0736 /* AppDelegate.m */,
 				4C0E01F219F9710200EF0736 /* Info.plist */,
 				4C0E01F319F9710200EF0736 /* main.m */,
+				4C0E01FE19F9710200EF0736 /* Images.xcassets */,
+				4C0E020019F9710200EF0736 /* LaunchScreen.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -157,6 +159,15 @@
 			name = TestSuite;
 			path = CvUniversalTest/TestSuite;
 			sourceTree = SOURCE_ROOT;
+		};
+		4C1AEAFB1A180B200094606A /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				4C0E01FB19F9710200EF0736 /* Main.storyboard */,
+				4C1AEAFC1A180B700094606A /* Settings.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -218,6 +229,7 @@
 				4C0E01FD19F9710200EF0736 /* Main.storyboard in Resources */,
 				4C0E020219F9710200EF0736 /* LaunchScreen.xib in Resources */,
 				4C0E01FF19F9710200EF0736 /* Images.xcassets in Resources */,
+				4C1AEAFD1A180B700094606A /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

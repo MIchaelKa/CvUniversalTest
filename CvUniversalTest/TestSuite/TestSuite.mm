@@ -98,7 +98,7 @@ using namespace std;
 - (void)findContours: (cv::Mat&)image
 {
     vector<vector<cv::Point>> contours;
-    vector<cv::Vec4i> hierarchy;  //?
+    vector<cv::Vec4i> hierarchy;  //settings!
     
     bool usingCanny = true;
     

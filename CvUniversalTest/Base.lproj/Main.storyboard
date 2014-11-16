@@ -40,7 +40,6 @@
                     </view>
                     <connections>
                         <outlet property="pickerView" destination="YXe-q2-auX" id="VYg-VP-tA1"/>
-                        <segue destination="WQ8-jI-Jzl" kind="presentation" identifier="Camera controller" modalTransitionStyle="crossDissolve" id="FwN-HX-8i3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -52,31 +51,10 @@
             </objects>
             <point key="canvasLocation" x="15" y="505"/>
         </scene>
-        <!--Camera View Controller-->
-        <scene sceneID="Ssj-SJ-8WN">
-            <objects>
-                <viewController id="WQ8-jI-Jzl" customClass="CameraViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CHk-IW-1oe"/>
-                        <viewControllerLayoutGuide type="bottom" id="hGT-zq-GD2"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="OpQ-QD-mxg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="Zej-gU-NHc" kind="presentation" identifier="Result controller" modalTransitionStyle="crossDissolve" id="RdS-3d-ifo"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ceR-ot-Yhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="739" y="505"/>
-        </scene>
         <!--Result View Controller-->
         <scene sceneID="yCs-2J-QxX">
             <objects>
-                <viewController id="Zej-gU-NHc" customClass="ResultViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResultViewController" id="Zej-gU-NHc" customClass="ResultViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CJb-g7-XcZ"/>
                         <viewControllerLayoutGuide type="bottom" id="jMe-8S-WB1"/>
@@ -103,7 +81,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YBA-Da-Uoc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1453" y="505"/>
+            <point key="canvasLocation" x="783" y="505"/>
         </scene>
     </scenes>
 </document>
