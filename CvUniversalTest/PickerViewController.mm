@@ -8,7 +8,6 @@
 
 #import "PickerViewController.h"
 
-#import "CameraViewController.h"
 #import "TestSuite/TestSuite.h"
 
 @interface PickerViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
@@ -20,7 +19,7 @@
 @property (strong, nonatomic) NSArray* availableTestNames;
 @property (nonatomic) NSInteger currentTestIndex;
 
-@property (strong, nonatomic) CameraViewController* cameraViewController;
+@property (strong, nonatomic) CameraViewController* testViewController;
 
 @end
 
@@ -46,19 +45,28 @@
 
 - (IBAction)tap:(UITapGestureRecognizer *)sender
 {
-    self.cameraViewController = [[CameraViewController alloc] init];
-    if (self.cameraViewController.testSuite == nil)
-    {
-        self.cameraViewController.testSuite = self.testSuite;
-    }
-    self.cameraViewController.testSuite.currentTestIndex = self.currentTestIndex;
-    
-    [self presentViewController: self.cameraViewController
+    [self presentViewController: self.testViewController
                        animated: YES
                      completion: nil];
 }
 
-#pragma mark UIPickerViewDelegate
+- (CameraViewController*)testViewController
+{
+    if (!_testViewController)
+    {
+        _testViewController = [[CameraViewController alloc] init];
+        _testViewController.delegate = self;
+        _testViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    }
+    if (!_testViewController.testSuite)
+    {
+        _testViewController.testSuite = self.testSuite;
+    }
+    _testViewController.testSuite.currentTestIndex = self.currentTestIndex;
+    return _testViewController;
+}
+
+#pragma mark - UIPickerViewDelegate
 
 - (NSString *)pickerView:(UIPickerView *)pickerView
              titleForRow:(NSInteger)row
@@ -74,7 +82,7 @@
     self.currentTestIndex = row;
 }
 
-#pragma mark UIPickerViewDataSource
+#pragma mark - UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
 {
@@ -85,6 +93,15 @@
 numberOfRowsInComponent:(NSInteger)component
 {
     return self.availableTestNames.count;
+}
+
+#pragma mark - CameraViewControllerDelegate
+
+- (void)cameraViewControllerDidFinished
+{
+    [self.testViewController dismissViewControllerAnimated: YES completion: nil];
+    self.testViewController.delegate = nil;
+    self.testViewController = nil;
 }
 
 @end

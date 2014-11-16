@@ -42,6 +42,19 @@
 
 @implementation CameraViewController
 
+- (ResultViewController*)resultViewController
+{
+    if (!_resultViewController)
+    {
+        _resultViewController = [[UIStoryboard mainStoryboard]
+            instantiateViewControllerWithIdentifier: @"ResultViewController"];
+        _resultViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    }
+    _resultViewController.resultImageView = self.resultImageView;
+
+    return _resultViewController;
+}
+
 - (UIImageView *)resultImageView
 {
     if (!_resultImageView) _resultImageView = [[UIImageView alloc] init];
@@ -163,6 +176,11 @@
                                         onViewWithSize: self.view.bounds.size];
         
     }
+    else
+    {
+        _testNameLabel.text = self.testSuite.currentTestName;
+    }
+    
     return _testNameLabel;
 }
 
@@ -190,9 +208,8 @@
 
 - (void)backToPickerView
 {
-    [self dismissViewControllerAnimated: YES completion: ^{
-        [self.videoCamera stop];
-    }];
+    [self.videoCamera stop];
+    [self.delegate cameraViewControllerDidFinished];    
 }
 
 - (void)startTest
@@ -210,12 +227,7 @@
     else
     {
         [self.videoCamera stop];
-        [self.testSuite processImageWithCurrentTest: currentFrame];
-        
-        self.resultViewController = [[UIStoryboard mainStoryboard]
-            instantiateViewControllerWithIdentifier: @"ResultViewController"];
-        
-        self.resultViewController.resultImageView = self.resultImageView;
+        [self.testSuite processImageWithCurrentTest: currentFrame];        
         
         [self presentViewController: self.resultViewController
                            animated: YES

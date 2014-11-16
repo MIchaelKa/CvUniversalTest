@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PickerViewController : UIViewController
+#import "CameraViewController.h"
 
+@interface PickerViewController : UIViewController <CameraViewControllerDelegate>
 
 @end
 

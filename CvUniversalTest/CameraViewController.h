@@ -7,12 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
 #import "TestSuite/TestSuite.h"
+
+@protocol CameraViewControllerDelegate <NSObject>
+
+- (void)cameraViewControllerDidFinished;
+
+@end
 
 @interface CameraViewController : UIViewController
 
 @property (weak, nonatomic) TestSuite* testSuite;
+
+@property (weak, nonatomic) id<CameraViewControllerDelegate> delegate;
 
 @end
