@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "TestSuite/TestSuite.h"
+#import "AnimatedPathView.h"
+
+using namespace std;
 
 @protocol CameraViewControllerDelegate <NSObject>
 
@@ -15,17 +19,25 @@
 
 @end
 
+
 @interface CameraViewController : UIViewController
 
 @property (weak, nonatomic) TestSuite* testSuite;
+
 @property (weak, nonatomic) id<CameraViewControllerDelegate> delegate;
 
-// UI - to separate view controller!???
 @property (nonatomic, strong) UIButton* undoButton;
 @property (nonatomic, strong) UIButton* startButton;
 @property (nonatomic, strong) UIButton* settingsButton;
 
+@property (nonatomic, strong) UILabel* testNameLabel;
+
+@property (nonatomic, strong) AnimatedPathView* animatedPathView;
+
 - (void)setupUI;
 - (void)addButtons: (NSArray *)buttons;
+
+- (cv::Mat&)currentFrame;
+- (void)processCurrentFrame: (cv::Mat&)frame;
 
 @end

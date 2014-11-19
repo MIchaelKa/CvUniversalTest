@@ -1,5 +1,5 @@
 //
-//  FindContoursViewController.h
+//  FindContoursController.h
 //  CvUniversalTest
 //
 //  Created by Michael Kalinin on 17/11/14.
@@ -8,6 +8,9 @@
 
 #import "CameraViewController.h"
 
-@interface FindContoursViewController : CameraViewController
+@interface FindContoursController : CameraViewController
+
+// Settings
+@property (nonatomic) BOOL usingCanny;
 
 @end

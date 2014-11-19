@@ -9,7 +9,9 @@
 #import "PickerViewController.h"
 
 #import "TestSuite/TestSuite.h"
-#import "TestSuite/FindContoursViewController.h"
+#import "TestSuite/FindContoursController.h"
+#import "TestSuite/SimpleTestController.h"
+#import "TestSuite/TrackObjectController.h"
 
 @interface PickerViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -55,7 +57,7 @@
 {
     if (!_testViewController)
     {
-        _testViewController = [[FindContoursViewController alloc] init];
+        _testViewController = [self createTestController];
         _testViewController.delegate = self;
         _testViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     }
@@ -66,6 +68,32 @@
     _testViewController.testSuite.currentTestIndex = self.currentTestIndex;
     return _testViewController;
 }
+
+- (CameraViewController*)createTestController
+{
+    switch (self.currentTestIndex)
+    {
+        case GOOD_FEATURES:
+        case CANNY_EDGE_DETECTION:
+        {
+            return [[SimpleTestController alloc] init];
+            
+        }
+        case FIND_CONTOURS:
+        {
+            return [[FindContoursController alloc] init];
+        }
+        case TRACK_OBJECT:
+        {
+            return [[TrackObjectController alloc] init];
+        }
+        default:
+        {
+            return [[CameraViewController alloc] init];
+        }
+    }
+}
+
 
 #pragma mark - UIPickerViewDelegate
 

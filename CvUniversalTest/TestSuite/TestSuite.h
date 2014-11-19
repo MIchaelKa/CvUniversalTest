@@ -15,11 +15,10 @@
 
 NS_ENUM(NSInteger, CvTest)
 {
-    GOOD_FEATURES = 0, ///!!!
-    OPTICAL_FLOW_TEST,
+    GOOD_FEATURES = 0,
     FIND_CONTOURS,
     TRACK_OBJECT,
-    CANNY_EDGE_DETECTION, ///!!!
+    CANNY_EDGE_DETECTION,
     
     CV_TEST_COUNT
 
@@ -32,9 +31,6 @@ NS_ENUM(NSInteger, CvTest)
 @property (nonatomic, strong) NSString* currentTestName;
 
 @property (nonatomic) NSInteger currentTestIndex;
-@property (nonatomic) BOOL isDynamic;
-
-- (void)processImageWithCurrentTest: (cv::Mat&)image;
-- (std::vector<cv::Point2f>)pointsForDisplayFromImage: (cv::Mat&)image;
+@property (nonatomic) BOOL isSimple;
 
 @end

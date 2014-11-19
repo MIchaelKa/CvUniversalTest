@@ -18,20 +18,16 @@
 
 #import "UIButton+CircularStyle.h"
 #import "UILabel+HeaderStyle.h"
-#import "AnimatedPathView.h"
+
 
 @interface CameraViewController () <CvVideoCameraDelegate>
 {
     cv::Mat currentFrame;
-    int count;
 }
 
 @property (nonatomic, strong) CvVideoCamera* videoCamera;
 @property (nonatomic, strong) UIImageView*   resultImageView;
 
-@property (nonatomic, strong) UILabel* testNameLabel;
-
-@property (nonatomic, strong) AnimatedPathView* animatedPathView; // to TrackObjectViewController
 
 @property (nonatomic, strong) ResultViewController* resultViewController;
 
@@ -75,8 +71,7 @@
            selector: @selector(orientationDidChange:)
                name: @"UIDeviceOrientationDidChangeNotification"
              object: nil];
-    
-    count = 0;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -107,18 +102,18 @@
 
 - (void)processImage:(cv::Mat&)image
 {
-    // implement callback in test suite
-    // +pass view(for dynamic?)
     image.copyTo(currentFrame);
-    
-    if ([self.testSuite isDynamic])
-    {
-        //get path if any;
-    }
-    else
-    {
-        
-    }
+}
+
+- (void)processCurrentFrame: (cv::Mat&)frame
+{
+    //Empty implementation
+    NSLog(@"CvTest - WARNING - Using empty implementation of processCurrentFrame");
+}
+
+- (cv::Mat&)currentFrame
+{
+    return currentFrame;
 }
 
 #pragma mark -  UI
@@ -168,7 +163,6 @@
     return _settingsButton;
 }
 
-
 - (UILabel *)testNameLabel
 {
     if (!_testNameLabel)
@@ -194,14 +188,7 @@
 - (void)setupUI
 {
     // Labels
-    [self.view addSubview: self.testNameLabel];
-    /*
-    // Views
-    [self.view addSubview: self.animatedPathView];
-    // Buttons
-    [self.view addSubview: self.undoButton];
-    [self.view addSubview: self.startButton];
-     */    
+    [self.view addSubview: self.testNameLabel];    
 }
 
 - (void)addButtons: (NSArray *)buttons
@@ -234,36 +221,20 @@
 
 - (void)startTest
 {
-    if ([self.testSuite isDynamic])
-    {
-        std::vector<cv::Point2f> path =
-            [self.testSuite pointsForDisplayFromImage: currentFrame];
-        
-        if (path.size() > 0)
-        {
-            [self.animatedPathView setPathForDisplay: path];
-        }
-    }
-    else
-    {
-        [self.videoCamera stop];
-        [self.testSuite processImageWithCurrentTest: currentFrame];        
-        
-        [self presentViewController: self.resultViewController
-                           animated: YES
-                         completion: nil];
-    }
+    [self.videoCamera stop];
+    //Delegate
+    [self processCurrentFrame: currentFrame];
+    
+    [self presentViewController: self.resultViewController
+                       animated: YES
+                     completion: nil];
+    
 }
 
 - (void)showSettings
 {
-    UINavigationController* settingsViewController =
-        [[UIStoryboard settingsStoryboard] instantiateViewControllerWithIdentifier: @"SettingsViewController"];
-    settingsViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    
-    [self presentViewController: settingsViewController
-                       animated: YES
-                     completion: nil];
+    //Empty implementation
+    NSLog(@"CvTest - WARNING - Using empty implementation of showSettings");
 }
 
 - (void)orientationDidChange: (NSNotification *)notification
