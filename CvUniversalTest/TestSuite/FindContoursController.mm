@@ -22,6 +22,9 @@
     [super viewDidLoad];
     
     self.usingCanny = true;
+    
+    self.ratio = 2;
+    self.firstTreshold = 100;
 }
 
 - (void)processCurrentFrame: (cv::Mat&)frame
@@ -41,11 +44,11 @@
     
     if (self.usingCanny)
     {
-        int thresh = 100;
-        cv::Canny(frameGrayScale, frameForFindContours, thresh, thresh * 2, 3 );
+        cv::Canny(frameGrayScale, frameForFindContours, self.firstTreshold, self.secondTreshold, 3);
     }
     else
     {
+        // only for tresh
         cv::threshold(frameGrayScale, frameForFindContours, 127, 250, CV_THRESH_BINARY);
     }
     
@@ -84,6 +87,12 @@
     [self presentViewController: nvc
                        animated: YES
                      completion: nil];
+}
+
+- (void)setFirstTreshold: (int)firstTreshold
+{
+    _firstTreshold = firstTreshold;
+    _secondTreshold = self.ratio * _firstTreshold;
 }
 
 @end

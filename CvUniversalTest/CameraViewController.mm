@@ -144,7 +144,7 @@
         _startButton = [UIButton circularButtonWithImageNamed: @"Start"];
         
         [_startButton addTarget: self
-                         action: @selector(startTest)
+                         action: @selector(showResults)
                forControlEvents: UIControlEventTouchUpInside];
     }
     return _startButton;
@@ -219,7 +219,7 @@
     [self.delegate cameraViewControllerDidFinished];    
 }
 
-- (void)startTest
+- (void)showResults
 {
     [self.videoCamera stop];
     //Delegate

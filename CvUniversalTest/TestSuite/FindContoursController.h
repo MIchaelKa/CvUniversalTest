@@ -12,5 +12,9 @@
 
 // Settings
 @property (nonatomic) BOOL usingCanny;
+// Canny settings
+@property (nonatomic) int firstTreshold;
+@property (nonatomic, readonly) int secondTreshold;
+@property (nonatomic) int ratio;
 
 @end

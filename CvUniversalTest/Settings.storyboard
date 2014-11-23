@@ -16,7 +16,7 @@
                         <sections>
                             <tableViewSection headerTitle="Basic" footerTitle="If this option disabled threshold will be used" id="e6W-Bp-46u">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AMT-Wc-esA">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AMT-Wc-esA">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AMT-Wc-esA" id="Is1-Lm-xKL">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -44,9 +44,29 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Thresholds" id="5wU-XR-0eu">
+                            <tableViewSection headerTitle="Thresholds" footerTitle="Use slider to change treshold values. You can use this section either for cv::canny or cv::treshold" id="5wU-XR-0eu">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="S9g-rA-o6i">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="E6N-o4-pyh">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E6N-o4-pyh" id="V1m-jA-rEj">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="mae-M6-tub">
+                                                    <rect key="frame" x="14" y="9" width="580" height="31"/>
+                                                    <connections>
+                                                        <action selector="takeTresholdValue:" destination="Bxr-on-rfH" eventType="valueChanged" id="tXk-qd-Qks"/>
+                                                    </connections>
+                                                </slider>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mae-M6-tub" firstAttribute="leading" secondItem="V1m-jA-rEj" secondAttribute="leadingMargin" constant="8" id="Log-tX-o5u"/>
+                                                <constraint firstItem="mae-M6-tub" firstAttribute="top" secondItem="V1m-jA-rEj" secondAttribute="topMargin" constant="1" id="OJb-ll-kuJ"/>
+                                                <constraint firstItem="mae-M6-tub" firstAttribute="trailing" secondItem="V1m-jA-rEj" secondAttribute="trailingMargin" id="z6J-A0-fnp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="S9g-rA-o6i">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S9g-rA-o6i" id="Kjv-4p-zwQ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -58,7 +78,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K5d-F8-jeS">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K5d-F8-jeS">
                                                     <rect key="frame" x="495" y="8" width="97" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="97" id="HW4-qx-iCx"/>
@@ -75,9 +95,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Zqi-Kz-ci4">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Zqi-Kz-ci4">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zqi-Kz-ci4" id="fOL-XE-ktk">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="Zqi-Kz-ci4" id="fOL-XE-ktk">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -87,7 +107,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SHE-Zs-GXi">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SHE-Zs-GXi">
                                                     <rect key="frame" x="495" y="7" width="97" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="97" id="m4L-uT-dxW"/>
@@ -107,14 +127,14 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Hierarchy" id="hDn-hJ-lrG">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AGu-gP-L06">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AGu-gP-L06">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AGu-gP-L06" id="McE-QV-ktX">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ttz-1y-ipT">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ttz-1y-ipT">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ttz-1y-ipT" id="Kfp-Px-ApF">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -138,11 +158,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cannySwitch" destination="0Ci-QF-eeu" id="rgh-KC-Gs2"/>
+                        <outlet property="firstTreshTextField" destination="K5d-F8-jeS" id="Ybq-qR-JpE"/>
+                        <outlet property="secondTreshTextField" destination="SHE-Zs-GXi" id="6gM-3Z-5Sz"/>
+                        <outlet property="tresholdSlider" destination="mae-M6-tub" id="gdn-Fu-cR6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EbE-hm-mxm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-278" y="100"/>
+            <point key="canvasLocation" x="-278" y="98"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PCi-40-jNF">
