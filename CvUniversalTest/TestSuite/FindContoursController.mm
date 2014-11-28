@@ -53,10 +53,10 @@
     }
     
     cv::findContours(frameForFindContours, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-  
     
+    // Different colors
     cv::Scalar color = cv::Scalar(0, 0, 255);
-    for( int i = 0; i < contours.size(); i++ )
+    for (int i = 0; i < contours.size(); i++)
     {
         if (hierarchy[i][3] == -1)
             cv::drawContours(image, contours, i, color, 2);

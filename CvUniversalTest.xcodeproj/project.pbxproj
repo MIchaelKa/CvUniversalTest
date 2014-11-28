@@ -26,6 +26,7 @@
 		4C1AEAFD1A180B700094606A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEAFC1A180B700094606A /* Settings.storyboard */; };
 		4C438AC51A0E78D000CE1D13 /* AnimatedPathView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */; };
 		4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */; };
+		4C75CBFE1A28581A00DC60D5 /* PointConvertor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C75CBFD1A28581A00DC60D5 /* PointConvertor.mm */; };
 		4CA691521A1A763300AF679D /* FindContoursController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691511A1A763300AF679D /* FindContoursController.mm */; };
 		4CA691551A1A780700AF679D /* SimpleTestController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691541A1A780700AF679D /* SimpleTestController.mm */; };
 		4CA691581A1A7C2E00AF679D /* TrackObjectController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691571A1A7C2E00AF679D /* TrackObjectController.mm */; };
@@ -63,6 +64,8 @@
 		4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AnimatedPathView.mm; sourceTree = "<group>"; };
 		4C635FBD1A192EA300164608 /* UIStoryboard+CvTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+CvTest.h"; sourceTree = "<group>"; };
 		4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+CvTest.m"; sourceTree = "<group>"; };
+		4C75CBFC1A28581A00DC60D5 /* PointConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointConvertor.h; sourceTree = "<group>"; };
+		4C75CBFD1A28581A00DC60D5 /* PointConvertor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PointConvertor.mm; sourceTree = "<group>"; };
 		4CA691501A1A763300AF679D /* FindContoursController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindContoursController.h; sourceTree = "<group>"; };
 		4CA691511A1A763300AF679D /* FindContoursController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FindContoursController.mm; sourceTree = "<group>"; };
 		4CA691531A1A780700AF679D /* SimpleTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTestController.h; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 				4C0E022A19FAD5C400EF0736 /* Controllers */,
 				4C0E022B19FAD5FA00EF0736 /* TestSuite */,
 				4C1AEAFB1A180B200094606A /* Storyboards */,
+				4C75CBFB1A28565500DC60D5 /* Utils */,
 				4C0E01F119F9710200EF0736 /* Supporting Files */,
 			);
 			path = CvUniversalTest;
@@ -192,6 +196,15 @@
 				4C1AEAFC1A180B700094606A /* Settings.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		4C75CBFB1A28565500DC60D5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4C75CBFC1A28581A00DC60D5 /* PointConvertor.h */,
+				4C75CBFD1A28581A00DC60D5 /* PointConvertor.mm */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +290,7 @@
 				4C0E01F719F9710200EF0736 /* AppDelegate.m in Sources */,
 				4C0E023719FD134B00EF0736 /* UILabel+HeaderStyle.m in Sources */,
 				4C0E01F419F9710200EF0736 /* main.m in Sources */,
+				4C75CBFE1A28581A00DC60D5 /* PointConvertor.mm in Sources */,
 				4CA691581A1A7C2E00AF679D /* TrackObjectController.mm in Sources */,
 				4C0E023A19FD31CF00EF0736 /* ResultViewController.m in Sources */,
 			);
@@ -384,6 +398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Michael/Developer/OpenCV,
@@ -398,6 +413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Michael/Developer/OpenCV,

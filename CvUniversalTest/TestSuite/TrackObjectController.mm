@@ -7,11 +7,13 @@
 //
 
 #import "TrackObjectController.h"
+#import "PointConvertor.h"
 
 
 @interface TrackObjectController ()
 
-
+@property (strong, nonatomic) UITapGestureRecognizer* tapGestureRecognizer;
+@property (strong, nonatomic) PointConvertor* pointConvertor;
 
 @end
 
@@ -20,11 +22,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view addGestureRecognizer: self.tapGestureRecognizer];
 }
 
-- (void)tap
+- (void)tap: (UITapGestureRecognizer *)tapGestureRecognizer
 {
-    [self.animatedPathView setPathForDisplay: [self trackObject: [self currentFrame]]];
+    CGPoint gesturePoint = [tapGestureRecognizer locationInView: self.view];
+    NSLog(@"x - %f, y - %f", gesturePoint.x, gesturePoint.y);
+    
+    cv::Point2f p1 = [self.pointConvertor CVPointFromCGPoint: gesturePoint];
+    NSLog(@"x - %f, y - %f", p1.x, p1.y);
+    
+    CGPoint p2 = [self.pointConvertor CGPointFromCVPoint: p1];
+    NSLog(@"x - %f, y - %f", p2.x, p2.y);
+    
+    //[self.animatedPathView setPathForDisplay: [self trackObject: [self currentFrame]]];
 }
 
 - (std::vector<cv::Point2f>)trackObject: (cv::Mat&)image
@@ -70,6 +82,27 @@
                         ]];
 
 }
+
+- (UITapGestureRecognizer *)tapGestureRecognizer
+{
+    if (!_tapGestureRecognizer)
+    {
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self
+                                                                        action: @selector(tap:)];
+    }
+    return _tapGestureRecognizer;
+}
+
+- (PointConvertor *)pointConvertor
+{
+    if (!_pointConvertor)
+    {
+        _pointConvertor = [[PointConvertor alloc] initWithFrameSize: self.frameSize
+                                                  AndTargetViewSize: self.view.bounds.size];
+    }
+    return _pointConvertor;
+}
+
 
 
 

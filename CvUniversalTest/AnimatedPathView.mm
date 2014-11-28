@@ -7,17 +7,16 @@
 //
 
 #import "AnimatedPathView.h"
+#import "PointConvertor.h"
 
 @interface AnimatedPathView()
-{
-    CGFloat conversionRate;
-    NSInteger offset;
-    
+{    
     UIBezierPath* currentPath;
     UIBezierPath* pathForDisplay;
 }
 
 @property (nonatomic, strong) CAShapeLayer* pathLayer;
+@property (nonatomic, strong) PointConvertor* pointConvertor;
 
 @end
 
@@ -62,12 +61,12 @@
         ++i;
     }
     
-    [bezierPath moveToPoint: [self CGPointFromCVPoint: path[i]]];
+    [bezierPath moveToPoint: [self.pointConvertor CGPointFromCVPoint: path[i]]];
     i++;
     
     for ( ; i < path.size(); ++i)
     {
-        [bezierPath addLineToPoint: [self CGPointFromCVPoint: path[i]]];
+        [bezierPath addLineToPoint: [self.pointConvertor CGPointFromCVPoint: path[i]]];
     }
     
     if (!currentPath)
@@ -96,29 +95,15 @@
     [self.pathLayer addAnimation: pathAnimation forKey: @"animatePath"];
 }
 
-- (CGPoint)CGPointFromCVPoint: (cv::Point2f)point
+- (PointConvertor *)pointConvertor
 {
-    return CGPointMake((point.x * conversionRate) - offset,
-                       point.y * conversionRate);
+    if (!_pointConvertor)
+    {
+        _pointConvertor = [[PointConvertor alloc] initWithFrameSize: self.frameSize
+                                                  AndTargetViewSize: self.bounds.size];
+    }
+    return _pointConvertor;
 }
 
-- (void)updateConversionRateForSize: (CGSize)size
-{
-    CGFloat frameWidth  = size.width;
-    CGFloat frameHeight = size.height;
-    
-    CGFloat viewWidth  = self.bounds.size.width;
-    CGFloat viewHeight = self.bounds.size.height;
-    
-    CGFloat frameAspectRatio = frameHeight / frameWidth;
-    CGFloat viewAspectRatio  = viewHeight / viewWidth;
-    
-    if (viewAspectRatio > frameAspectRatio)
-    {
-        conversionRate = viewHeight / frameHeight;
-        CGFloat convertedFrameWidth = frameWidth * conversionRate;
-        offset = (convertedFrameWidth - viewWidth) / 2;
-    }
-}
 
 @end

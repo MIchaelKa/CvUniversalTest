@@ -28,7 +28,6 @@
 @property (nonatomic, strong) CvVideoCamera* videoCamera;
 @property (nonatomic, strong) UIImageView*   resultImageView;
 
-
 @property (nonatomic, strong) ResultViewController* resultViewController;
 
 @end
@@ -98,6 +97,9 @@
 - (void)startCamera
 {
     [self.videoCamera start];
+    
+    self.frameSize = CGSizeMake(self.videoCamera.imageHeight,
+                                self.videoCamera.imageWidth);
 }
 
 - (void)processImage:(cv::Mat&)image
@@ -179,8 +181,7 @@
     if (!_animatedPathView)
     {
         _animatedPathView = [[AnimatedPathView alloc] initWithFrame: self.view.bounds];
-        [_animatedPathView updateConversionRateForSize:CGSizeMake(self.videoCamera.imageHeight,
-                                                                  self.videoCamera.imageWidth)];
+        _animatedPathView.frameSize = self.frameSize;
     }
     return _animatedPathView;
 }

@@ -34,6 +34,8 @@ using namespace std;
 
 @property (nonatomic, strong) AnimatedPathView* animatedPathView;
 
+@property (nonatomic) CGSize frameSize;
+
 - (void)setupUI;
 - (void)addButtons: (NSArray *)buttons;
 

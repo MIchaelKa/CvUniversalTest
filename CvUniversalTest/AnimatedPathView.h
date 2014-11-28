@@ -14,8 +14,8 @@
 
 @interface AnimatedPathView : UIView
 
-- (void)setPathForDisplay: (std::vector<cv::Point2f>)path;
+@property (nonatomic) CGSize frameSize;
 
-- (void)updateConversionRateForSize: (CGSize)size;
+- (void)setPathForDisplay: (std::vector<cv::Point2f>)path;
 
 @end
