@@ -48,7 +48,7 @@
     }
     else
     {
-        // only for tresh
+        // settings only for tresh
         cv::threshold(frameGrayScale, frameForFindContours, 127, 250, CV_THRESH_BINARY);
     }
     

@@ -28,46 +28,48 @@
 - (void)tap: (UITapGestureRecognizer *)tapGestureRecognizer
 {
     CGPoint gesturePoint = [tapGestureRecognizer locationInView: self.view];
-    NSLog(@"x - %f, y - %f", gesturePoint.x, gesturePoint.y);
     
-    cv::Point2f p1 = [self.pointConvertor CVPointFromCGPoint: gesturePoint];
-    NSLog(@"x - %f, y - %f", p1.x, p1.y);
+    vector<cv::Point> objectContour;
+    objectContour = [self contourAtPoint:[self.pointConvertor CVPointFromCGPoint: gesturePoint]
+                                 onImage:[self currentFrame]];
+
     
-    CGPoint p2 = [self.pointConvertor CGPointFromCVPoint: p1];
-    NSLog(@"x - %f, y - %f", p2.x, p2.y);
-    
-    //[self.animatedPathView setPathForDisplay: [self trackObject: [self currentFrame]]];
+    [self.animatedPathView setPathForDisplay: objectContour];
 }
 
-- (std::vector<cv::Point2f>)trackObject: (cv::Mat&)image
+- (vector<cv::Point>)contourAtPoint: (cv::Point)point
+                            onImage: (cv::Mat&)image
 {
     vector<vector<cv::Point>> contours;
     vector<cv::Point>   contour;
     
-    cv::Mat frameGrayScale;
-    cv::Mat frameThreshold;
+    contours = [self findContoursOnImage: image];
     
-    cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
-    cv::threshold(frameGrayScale, frameThreshold, 127, 250, CV_THRESH_BINARY);
-    
-    cv::findContours(frameThreshold, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE );
-    
-    for( int i = 0; i< contours.size(); i++ )
+    for (int i = 0; i < contours.size(); i++)
     {
-        int area = cv::contourArea(contours[i]);
-        if (area < 5000 && area > 3000)
+        cv::Rect rect = cv::boundingRect(contours[i]);
+        if (rect.contains(point))
         {
             contour = contours[i];
         }
     }
     
-    vector<cv::Point2f> points(contour.size());
-    for (size_t i = 0; i < contour.size(); i++)
-    {
-        points.push_back(cv::Point2f(contour[i].x, contour[i].y));
-    }
+    return contour;    
+}
+
+- (vector<vector<cv::Point>>)findContoursOnImage: (cv::Mat&)image
+{
+    vector<vector<cv::Point>> contours;
     
-    return points;
+    cv::Mat frameGrayScale;
+    cv::Mat frameCanny;
+    
+    cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
+    cv::Canny(frameGrayScale, frameCanny, 100, 200, 3);
+    
+    cv::findContours(frameCanny, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE );//zeros??
+    
+    return contours;
 }
 
 - (void)setupUI
