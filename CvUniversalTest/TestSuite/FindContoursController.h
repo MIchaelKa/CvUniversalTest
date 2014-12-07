@@ -12,9 +12,15 @@
 
 // Settings
 @property (nonatomic) BOOL usingCanny;
+
 // Canny settings
 @property (nonatomic) int firstTreshold;
 @property (nonatomic, readonly) int secondTreshold;
 @property (nonatomic) int ratio;
+
+// Approx settings
+@property (nonatomic, strong) NSArray* approximationMethods;
+@property (nonatomic) NSUInteger currentApproxMethodIndex;
+@property (nonatomic, strong) NSString* currentMethodName;
 
 @end

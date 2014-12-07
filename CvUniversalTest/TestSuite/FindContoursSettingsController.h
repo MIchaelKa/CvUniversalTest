@@ -10,7 +10,9 @@
 
 #import "FindContoursController.h"
 
-@interface FindContoursSettingsController : UITableViewController
+#import "ApproxMethodsController.h"
+
+@interface FindContoursSettingsController : UITableViewController <ApproxMethodsControllerDelegate>
 
 @property (weak, nonatomic) FindContoursController* parent;
 

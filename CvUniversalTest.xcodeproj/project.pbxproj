@@ -23,6 +23,7 @@
 		4C0E023119FB9CD000EF0736 /* TestSuite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E023019FB9CD000EF0736 /* TestSuite.mm */; };
 		4C0E023719FD134B00EF0736 /* UILabel+HeaderStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E023619FD134B00EF0736 /* UILabel+HeaderStyle.m */; };
 		4C0E023A19FD31CF00EF0736 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E023919FD31CF00EF0736 /* ResultViewController.m */; };
+		4C11CB791A34648900121DA4 /* ApproxMethodsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C11CB781A34648900121DA4 /* ApproxMethodsController.m */; };
 		4C1AEAFD1A180B700094606A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEAFC1A180B700094606A /* Settings.storyboard */; };
 		4C438AC51A0E78D000CE1D13 /* AnimatedPathView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */; };
 		4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */; };
@@ -59,6 +60,8 @@
 		4C0E023619FD134B00EF0736 /* UILabel+HeaderStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+HeaderStyle.m"; sourceTree = "<group>"; };
 		4C0E023819FD31CF00EF0736 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		4C0E023919FD31CF00EF0736 /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		4C11CB771A34648900121DA4 /* ApproxMethodsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApproxMethodsController.h; sourceTree = "<group>"; };
+		4C11CB781A34648900121DA4 /* ApproxMethodsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApproxMethodsController.m; sourceTree = "<group>"; };
 		4C1AEAFC1A180B700094606A /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		4C438AC31A0E78D000CE1D13 /* AnimatedPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedPathView.h; sourceTree = "<group>"; };
 		4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AnimatedPathView.mm; sourceTree = "<group>"; };
@@ -172,20 +175,30 @@
 		4C0E022B19FAD5FA00EF0736 /* TestSuite */ = {
 			isa = PBXGroup;
 			children = (
+				4C11CB761A33A43600121DA4 /* Find Contours */,
 				4C0E022F19FB9CD000EF0736 /* TestSuite.h */,
 				4C0E023019FB9CD000EF0736 /* TestSuite.mm */,
 				4CA691531A1A780700AF679D /* SimpleTestController.h */,
 				4CA691541A1A780700AF679D /* SimpleTestController.mm */,
-				4CA691501A1A763300AF679D /* FindContoursController.h */,
-				4CA691511A1A763300AF679D /* FindContoursController.mm */,
-				4C091D021A1D104F00D098A6 /* FindContoursSettingsController.h */,
-				4C091D031A1D104F00D098A6 /* FindContoursSettingsController.mm */,
 				4CA691561A1A7C2E00AF679D /* TrackObjectController.h */,
 				4CA691571A1A7C2E00AF679D /* TrackObjectController.mm */,
 			);
 			name = TestSuite;
 			path = CvUniversalTest/TestSuite;
 			sourceTree = SOURCE_ROOT;
+		};
+		4C11CB761A33A43600121DA4 /* Find Contours */ = {
+			isa = PBXGroup;
+			children = (
+				4CA691501A1A763300AF679D /* FindContoursController.h */,
+				4CA691511A1A763300AF679D /* FindContoursController.mm */,
+				4C091D021A1D104F00D098A6 /* FindContoursSettingsController.h */,
+				4C091D031A1D104F00D098A6 /* FindContoursSettingsController.mm */,
+				4C11CB771A34648900121DA4 /* ApproxMethodsController.h */,
+				4C11CB781A34648900121DA4 /* ApproxMethodsController.m */,
+			);
+			name = "Find Contours";
+			sourceTree = "<group>";
 		};
 		4C1AEAFB1A180B200094606A /* Storyboards */ = {
 			isa = PBXGroup;
@@ -284,6 +297,7 @@
 				4CA691521A1A763300AF679D /* FindContoursController.mm in Sources */,
 				4C0E022819F9921D00EF0736 /* UIButton+CircularStyle.m in Sources */,
 				4C0E023119FB9CD000EF0736 /* TestSuite.mm in Sources */,
+				4C11CB791A34648900121DA4 /* ApproxMethodsController.m in Sources */,
 				4C0E021C19F97FF400EF0736 /* CameraViewController.mm in Sources */,
 				4C438AC51A0E78D000CE1D13 /* AnimatedPathView.mm in Sources */,
 				4CA691551A1A780700AF679D /* SimpleTestController.mm in Sources */,

@@ -25,6 +25,8 @@
     
     self.ratio = 2;
     self.firstTreshold = 100;
+    
+    self.currentApproxMethodIndex = CV_CHAIN_APPROX_SIMPLE;
 }
 
 - (void)processCurrentFrame: (cv::Mat&)frame
@@ -52,7 +54,7 @@
         cv::threshold(frameGrayScale, frameForFindContours, 127, 250, CV_THRESH_BINARY);
     }
     
-    cv::findContours(frameForFindContours, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+    cv::findContours(frameForFindContours, contours, hierarchy, CV_RETR_TREE, self.currentApproxMethodIndex);
     
     
     cv::Scalar colors[3] = {cv::Scalar(255, 0, 0),
@@ -62,8 +64,37 @@
     for (int i = 0; i < contours.size(); i++)
     {
         if (hierarchy[i][3] == -1)
-            cv::drawContours(image, contours, i, colors[i%3], 2);
+        {
+            [self drawContour: contours[i]
+                      atImage: image
+                    withColor: colors[i%3]];
+        }
+        //cv::drawContours(image, contours, i, colors[i%3], 2);
     }
+}
+
+- (void)drawContour: (vector<cv::Point>)contour
+            atImage: (cv::Mat&)image
+          withColor: (cv::Scalar)color
+{
+    for (int i = 0; i < contour.size(); i++)
+    {
+        [self drawPoint: contour[i]
+                atImage: image
+              withColor: color];
+    }
+}
+
+- (void)drawPoint: (cv::Point)point
+          atImage: (cv::Mat&)image
+        withColor: (cv::Scalar)color
+{
+    int rectPointX = point.x;
+    int rectPointY = point.y;
+    
+    image.at<cv::Vec4b>(rectPointY, rectPointX)[0] = color[0];
+    image.at<cv::Vec4b>(rectPointY, rectPointX)[1] = color[1];
+    image.at<cv::Vec4b>(rectPointY, rectPointX)[2] = color[2];
 }
 
 - (void)setupUI
@@ -96,6 +127,27 @@
 {
     _firstTreshold = firstTreshold;
     _secondTreshold = self.ratio * _firstTreshold;
+}
+
+- (NSArray *)approximationMethods
+{
+    if (!_approximationMethods)
+    {
+        _approximationMethods = @[
+                                  @"Code",
+                                  @"None",
+                                  @"Simple",
+                                  @"TC89 L1",
+                                  @"TC89 KCOS",
+                                  @"LINK RUNS",
+                                  ];
+    }
+    return _approximationMethods;
+}
+
+- (NSString *)currentMethodName
+{
+    return self.approximationMethods[self.currentApproxMethodIndex];
 }
 
 @end

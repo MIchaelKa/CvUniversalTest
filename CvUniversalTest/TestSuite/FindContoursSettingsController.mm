@@ -11,13 +11,26 @@
 @interface FindContoursSettingsController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *cannySwitch;
+
 @property (weak, nonatomic) IBOutlet UISlider *tresholdSlider;
 @property (weak, nonatomic) IBOutlet UITextField *firstTreshTextField;
 @property (weak, nonatomic) IBOutlet UITextField *secondTreshTextField;
 
+@property (weak, nonatomic) IBOutlet UILabel *approxMethodLabel;
+
 @end
 
 @implementation FindContoursSettingsController
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ApproxMethodsSegue"]) {
+        ApproxMethodsController *amvc = segue.destinationViewController;
+        amvc.delegate = self;
+        amvc.methods = self.parent.approximationMethods;
+        amvc.currentIndex = self.parent.currentApproxMethodIndex;
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -34,6 +47,8 @@
     self.tresholdSlider.value = self.parent.firstTreshold;
     
     [self updateTreshTextFields];
+    
+    self.approxMethodLabel.text = self.parent.currentMethodName;
 }
 
 - (void)updateTreshTextFields
@@ -60,6 +75,15 @@
 {
     self.parent.firstTreshold = sender.value;
     [self updateTreshTextFields];
+}
+
+#pragma mark - ApproxMethodsControllerDelegate
+
+-(void)selectApproxMethod: (NSUInteger)methodIndex
+{
+    self.parent.currentApproxMethodIndex = methodIndex;
+    self.approxMethodLabel.text = self.parent.currentMethodName;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
