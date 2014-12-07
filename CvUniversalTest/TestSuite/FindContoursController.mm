@@ -27,6 +27,7 @@
     self.firstTreshold = 100;
     
     self.currentApproxMethodIndex = CV_CHAIN_APPROX_SIMPLE;
+    self.currentRetrievalModeIndex = CV_RETR_TREE;
 }
 
 - (void)processCurrentFrame: (cv::Mat&)frame
@@ -50,12 +51,14 @@
     }
     else
     {
-        // settings only for tresh
         cv::threshold(frameGrayScale, frameForFindContours, 127, 250, CV_THRESH_BINARY);
     }
     
-    cv::findContours(frameForFindContours, contours, hierarchy, CV_RETR_TREE, self.currentApproxMethodIndex);
-    
+    cv::findContours(frameForFindContours,
+                     contours,
+                     hierarchy,
+                     self.currentRetrievalModeIndex,
+                     self.currentApproxMethodIndex);
     
     cv::Scalar colors[3] = {cv::Scalar(255, 0, 0),
                             cv::Scalar(0, 255, 0),
@@ -148,6 +151,26 @@
 - (NSString *)currentMethodName
 {
     return self.approximationMethods[self.currentApproxMethodIndex];
+}
+
+- (NSArray *)retrievalModes
+{
+    if (!_retrievalModes)
+    {
+        _retrievalModes = @[
+                            @"External",
+                            @"List",
+                            @"Ccomp",
+                            @"Tree",
+                            @"Flood Fill",
+                            ];
+    }
+    return _retrievalModes;
+}
+
+- (NSString *)currentModeName
+{
+    return self.retrievalModes[self.currentRetrievalModeIndex];
 }
 
 @end

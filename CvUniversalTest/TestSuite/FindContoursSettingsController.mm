@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *secondTreshTextField;
 
 @property (weak, nonatomic) IBOutlet UILabel *approxMethodLabel;
+@property (weak, nonatomic) IBOutlet UILabel *retrievalModeLabel;
 
 @end
 
@@ -29,6 +30,13 @@
         amvc.delegate = self;
         amvc.methods = self.parent.approximationMethods;
         amvc.currentIndex = self.parent.currentApproxMethodIndex;
+    }
+    else if ([segue.identifier isEqualToString:@"RetrModeSegue"])
+    {
+        RetrievalModeController *rmvc = segue.destinationViewController;
+        rmvc.delegate = self;
+        rmvc.modes = self.parent.retrievalModes;
+        rmvc.currentIndex = self.parent.currentRetrievalModeIndex;
     }
 }
 
@@ -49,6 +57,7 @@
     [self updateTreshTextFields];
     
     self.approxMethodLabel.text = self.parent.currentMethodName;
+    self.retrievalModeLabel.text = self.parent.currentModeName;
 }
 
 - (void)updateTreshTextFields
@@ -85,5 +94,15 @@
     self.approxMethodLabel.text = self.parent.currentMethodName;
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - RetrievalModeControllerDelegate
+
+-(void)selectRetrievalMode: (NSUInteger)modeIndex
+{
+    self.parent.currentRetrievalModeIndex = modeIndex;
+    self.retrievalModeLabel.text = self.parent.currentModeName;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 @end

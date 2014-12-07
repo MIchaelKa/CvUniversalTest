@@ -11,8 +11,10 @@
 #import "FindContoursController.h"
 
 #import "ApproxMethodsController.h"
+#import "RetrievalModeController.h"
 
-@interface FindContoursSettingsController : UITableViewController <ApproxMethodsControllerDelegate>
+@interface FindContoursSettingsController : UITableViewController <ApproxMethodsControllerDelegate,
+                                                                   RetrievalModeControllerDelegate>
 
 @property (weak, nonatomic) FindContoursController* parent;
 

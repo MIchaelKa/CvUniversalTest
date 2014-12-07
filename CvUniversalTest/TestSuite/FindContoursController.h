@@ -23,4 +23,9 @@
 @property (nonatomic) NSUInteger currentApproxMethodIndex;
 @property (nonatomic, strong) NSString* currentMethodName;
 
+// Retrieval modes settings
+@property (nonatomic, strong) NSArray* retrievalModes;
+@property (nonatomic) NSUInteger currentRetrievalModeIndex;
+@property (nonatomic, strong) NSString* currentModeName;
+
 @end

@@ -44,7 +44,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Thresholds" footerTitle="Use slider to change treshold values. You can use this section either for cv::canny or cv::treshold" id="5wU-XR-0eu">
+                            <tableViewSection headerTitle="Thresholds" footerTitle="Use slider to change treshold values. You can use this section only for cv::canny" id="5wU-XR-0eu">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="E6N-o4-pyh">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -125,6 +125,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Hierarchy" id="BX5-lC-UBj">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="WH5-ml-Lpy" detailTextLabel="Bof-CX-Owd" style="IBUITableViewCellStyleValue1" id="1n6-EO-q2t">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1n6-EO-q2t" id="OEA-4e-GoF">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Retrieval Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WH5-ml-Lpy">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bof-CX-Owd">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xwe-ki-g4k" kind="show" identifier="RetrModeSegue" id="92y-Ow-yel"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Approximation" id="hDn-hJ-lrG">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="3cW-mB-NAO" detailTextLabel="a7Z-fH-9cA" style="IBUITableViewCellStyleValue1" id="AGu-gP-L06">
@@ -133,7 +161,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Approx method" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3cW-mB-NAO">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Approx Method" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3cW-mB-NAO">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -150,24 +178,6 @@
                                         <connections>
                                             <segue destination="VCl-iD-9sS" kind="show" identifier="ApproxMethodsSegue" id="XnR-21-pW3"/>
                                         </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Hierarchy" id="BX5-lC-UBj">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1n6-EO-q2t">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1n6-EO-q2t" id="OEA-4e-GoF">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="HQV-tS-tB6">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HQV-tS-tB6" id="GVj-VM-EkP">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -188,6 +198,7 @@
                         <outlet property="approxMethodLabel" destination="a7Z-fH-9cA" id="nsf-uW-4Gt"/>
                         <outlet property="cannySwitch" destination="0Ci-QF-eeu" id="rgh-KC-Gs2"/>
                         <outlet property="firstTreshTextField" destination="K5d-F8-jeS" id="Ybq-qR-JpE"/>
+                        <outlet property="retrievalModeLabel" destination="Bof-CX-Owd" id="JII-2l-zr7"/>
                         <outlet property="secondTreshTextField" destination="SHE-Zs-GXi" id="6gM-3Z-5Sz"/>
                         <outlet property="tresholdSlider" destination="mae-M6-tub" id="gdn-Fu-cR6"/>
                     </connections>
@@ -221,7 +232,34 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4BY-87-8rj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="501" y="98"/>
+            <point key="canvasLocation" x="473" y="-314"/>
+        </scene>
+        <!--Retrieval modes-->
+        <scene sceneID="5kU-kc-PaH">
+            <objects>
+                <tableViewController id="xwe-ki-g4k" customClass="RetrievalModeController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dng-wv-Xxd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RetrModeCell" id="gYe-dC-5L8">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gYe-dC-5L8" id="B0Q-Bp-IvT">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xwe-ki-g4k" id="IGP-YU-Rxx"/>
+                            <outlet property="delegate" destination="xwe-ki-g4k" id="XEy-NK-r6V"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Retrieval modes" id="WXT-vQ-2kS"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LO4-Lu-lcf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="473" y="494"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PCi-40-jNF">
