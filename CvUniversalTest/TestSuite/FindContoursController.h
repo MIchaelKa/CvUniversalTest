@@ -12,6 +12,7 @@
 
 // Settings
 @property (nonatomic) BOOL usingCanny;
+@property (nonatomic) BOOL usingPointDrawing;
 
 // Canny settings
 @property (nonatomic) int firstTreshold;

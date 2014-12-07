@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Basic" footerTitle="If this option disabled threshold will be used" id="e6W-Bp-46u">
+                            <tableViewSection headerTitle="Basic" footerTitle="If Canny disabled threshold will be used." id="e6W-Bp-46u">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AMT-Wc-esA">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -39,6 +39,33 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="0Ci-QF-eeu" secondAttribute="bottom" constant="-2" id="7om-7V-82s"/>
                                                 <constraint firstItem="0Ci-QF-eeu" firstAttribute="top" secondItem="Is1-Lm-xKL" secondAttribute="topMargin" constant="-2" id="Gbo-m5-NHC"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="0Ci-QF-eeu" secondAttribute="trailing" id="K7K-o2-jSp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fmH-8B-GN9">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fmH-8B-GN9" id="ZWZ-dA-yAa">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MFh-rc-TsK">
+                                                    <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="pointDrawingStateDidChange:" destination="Bxr-on-rfH" eventType="valueChanged" id="JUV-XT-m5J"/>
+                                                        <action selector="useCannyStateDidChange:" destination="Bxr-on-rfH" eventType="valueChanged" id="nsP-O8-TeN"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Point drawing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GT3-Wo-z4s">
+                                                    <rect key="frame" x="13" y="11" width="106" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MFh-rc-TsK" firstAttribute="top" secondItem="ZWZ-dA-yAa" secondAttribute="topMargin" constant="-2" id="C2A-Zc-cuN"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="MFh-rc-TsK" secondAttribute="trailing" id="SSR-GZ-96x"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="MFh-rc-TsK" secondAttribute="bottom" constant="-2" id="xob-yj-T0k"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -198,6 +225,7 @@
                         <outlet property="approxMethodLabel" destination="a7Z-fH-9cA" id="nsf-uW-4Gt"/>
                         <outlet property="cannySwitch" destination="0Ci-QF-eeu" id="rgh-KC-Gs2"/>
                         <outlet property="firstTreshTextField" destination="K5d-F8-jeS" id="Ybq-qR-JpE"/>
+                        <outlet property="pointDrawingSwitch" destination="MFh-rc-TsK" id="LCx-YI-hKU"/>
                         <outlet property="retrievalModeLabel" destination="Bof-CX-Owd" id="JII-2l-zr7"/>
                         <outlet property="secondTreshTextField" destination="SHE-Zs-GXi" id="6gM-3Z-5Sz"/>
                         <outlet property="tresholdSlider" destination="mae-M6-tub" id="gdn-Fu-cR6"/>
@@ -277,7 +305,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VH1-gG-gLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1090" y="101"/>
+            <point key="canvasLocation" x="-1055" y="98"/>
         </scene>
     </scenes>
 </document>

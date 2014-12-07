@@ -21,7 +21,8 @@
 {
     [super viewDidLoad];
     
-    self.usingCanny = true;
+    self.usingCanny = YES;
+    self.usingPointDrawing = NO;
     
     self.ratio = 2;
     self.firstTreshold = 100;
@@ -57,27 +58,36 @@
     cv::findContours(frameForFindContours,
                      contours,
                      hierarchy,
-                     self.currentRetrievalModeIndex,
-                     self.currentApproxMethodIndex);
+                     (int)self.currentRetrievalModeIndex,
+                     (int)self.currentApproxMethodIndex);
     
+    [self drawContours:contours onImage:image];
+}
+
+- (void)drawContours: (vector<vector<cv::Point>>) contours
+             onImage: (cv::Mat&)image
+{
     cv::Scalar colors[3] = {cv::Scalar(255, 0, 0),
                             cv::Scalar(0, 255, 0),
                             cv::Scalar(0, 0, 255)};
     
     for (int i = 0; i < contours.size(); i++)
     {
-        if (hierarchy[i][3] == -1)
+        if (self.usingPointDrawing)
         {
             [self drawContour: contours[i]
-                      atImage: image
+                      onImage: image
                     withColor: colors[i%3]];
         }
-        //cv::drawContours(image, contours, i, colors[i%3], 2);
+        else
+        {
+            cv::drawContours(image, contours, i, colors[i%3], 2);
+        }
     }
 }
 
 - (void)drawContour: (vector<cv::Point>)contour
-            atImage: (cv::Mat&)image
+            onImage: (cv::Mat&)image
           withColor: (cv::Scalar)color
 {
     for (int i = 0; i < contour.size(); i++)

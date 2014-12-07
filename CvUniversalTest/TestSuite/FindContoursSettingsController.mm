@@ -11,6 +11,7 @@
 @interface FindContoursSettingsController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *cannySwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *pointDrawingSwitch;
 
 @property (weak, nonatomic) IBOutlet UISlider *tresholdSlider;
 @property (weak, nonatomic) IBOutlet UITextField *firstTreshTextField;
@@ -49,6 +50,7 @@
 - (void)setupUI
 {
     self.cannySwitch.on = self.parent.usingCanny;
+    self.pointDrawingSwitch.on = self.parent.usingPointDrawing;
     
     self.tresholdSlider.minimumValue = 0.0;
     self.tresholdSlider.maximumValue = 250.0;
@@ -78,6 +80,11 @@
 - (IBAction)useCannyStateDidChange:(UISwitch *)sender
 {
     self.parent.usingCanny = sender.isOn;
+}
+
+- (IBAction)pointDrawingStateDidChange:(UISwitch *)sender
+{
+    self.parent.usingPointDrawing = sender.isOn;
 }
 
 - (IBAction)takeTresholdValue:(UISlider *)sender
