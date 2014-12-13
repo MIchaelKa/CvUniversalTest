@@ -33,6 +33,11 @@
             [self cannyEdgeDetection: frame];
             break;
         }
+        case MORPH_TRANSFORM:
+        {
+            [self morphologicalTransform: frame];
+            break;
+        }
     }
 }
 
@@ -58,6 +63,14 @@
     
     cv::cvtColor(image, image, CV_BGR2GRAY);
     cv::Canny(image, image, thresh, thresh * 2, 3 );
+}
+
+- (void)morphologicalTransform: (cv::Mat&)image
+{
+    //[self cannyEdgeDetection: image];
+    
+    cv::Mat element = cv::getStructuringElement (cv::MORPH_RECT, cv::Size(5, 5));
+    cv::erode(image, image, element );
 }
 
 # pragma mark - UI

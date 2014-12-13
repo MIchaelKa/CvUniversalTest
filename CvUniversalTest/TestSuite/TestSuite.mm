@@ -111,6 +111,10 @@ using namespace std;
         {
             return @"Canny Edge Detection";
         }
+        case MORPH_TRANSFORM:
+        {
+            return @"Morphological Transform";
+        }
         default:
         {
             return @"";
@@ -124,6 +128,7 @@ using namespace std;
     {
         case GOOD_FEATURES:
         case CANNY_EDGE_DETECTION:
+        case MORPH_TRANSFORM:
         {
             return YES;
         }

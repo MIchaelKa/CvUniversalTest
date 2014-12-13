@@ -52,7 +52,6 @@
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="pointDrawingStateDidChange:" destination="Bxr-on-rfH" eventType="valueChanged" id="JUV-XT-m5J"/>
-                                                        <action selector="useCannyStateDidChange:" destination="Bxr-on-rfH" eventType="valueChanged" id="nsP-O8-TeN"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Point drawing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GT3-Wo-z4s">

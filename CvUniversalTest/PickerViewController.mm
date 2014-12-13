@@ -37,7 +37,12 @@
     self.availableTestNames = self.testSuite.availableTestNames;
     
     self.pickerView.dataSource = self;
-    self.pickerView.delegate = self;    
+    self.pickerView.delegate = self;
+    
+    NSInteger component = 0;
+    [self.pickerView selectRow: [self.pickerView numberOfRowsInComponent: component] / 2
+                   inComponent: component
+                      animated: YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,6 +80,7 @@
     {
         case GOOD_FEATURES:
         case CANNY_EDGE_DETECTION:
+        case MORPH_TRANSFORM:
         {
             return [[SimpleTestController alloc] init];
             
