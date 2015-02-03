@@ -50,14 +50,14 @@
     return _pathLayer;
 }
 
-- (void)setPathForDisplay: (std::vector<cv::Point>)path
+- (void)setPathForDisplay: (std::vector<cv::Point2f>)path
 {
     UIBezierPath* bezierPath = [UIBezierPath bezierPath];
     
     size_t i = 0;
     while (!(path[i].x > 0 || path[i].y > 0))
     {
-        //TODO: investigate why we have a lot of zero point at the start        
+        //TODO: investigate why we have a lot of zero points at the start        
         ++i;
     }
     

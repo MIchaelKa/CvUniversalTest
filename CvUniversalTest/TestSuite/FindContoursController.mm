@@ -24,7 +24,7 @@
     self.usingCanny = YES;
     self.usingPointDrawing = NO;
     
-    self.ratio = 2;
+    self.ratio = 3;
     self.firstTreshold = 100;
     
     self.currentApproxMethodIndex = CV_CHAIN_APPROX_SIMPLE;

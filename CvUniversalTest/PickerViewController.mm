@@ -40,7 +40,8 @@
     self.pickerView.delegate = self;
     
     NSInteger component = 0;
-    [self.pickerView selectRow: [self.pickerView numberOfRowsInComponent: component] / 2
+    self.currentTestIndex = [self.pickerView numberOfRowsInComponent: component] / 2;
+    [self.pickerView selectRow: self.currentTestIndex
                    inComponent: component
                       animated: YES];
 }
@@ -81,6 +82,7 @@
         case GOOD_FEATURES:
         case CANNY_EDGE_DETECTION:
         case MORPH_TRANSFORM:
+        case THRESHOLD:
         {
             return [[SimpleTestController alloc] init];
             

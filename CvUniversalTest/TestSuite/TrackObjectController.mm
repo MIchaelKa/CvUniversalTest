@@ -11,6 +11,13 @@
 
 
 @interface TrackObjectController ()
+{
+    cv::Mat previousFrame;
+    std::vector<cv::Point2f> previousPoints;
+    std::vector<cv::Point2f> pathToDisplay;
+    
+    BOOL start;
+}
 
 @property (strong, nonatomic) UITapGestureRecognizer* tapGestureRecognizer;
 @property (strong, nonatomic) PointConvertor* pointConvertor;
@@ -23,19 +30,74 @@
 {
     [super viewDidLoad];
     [self.view addGestureRecognizer: self.tapGestureRecognizer];
+    
+    start = NO;
+}
+
+- (void)processImage:(cv::Mat&)image
+{
+    if(start)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.animatedPathView setPathForDisplay: [self calcOpticalFlow:image]];
+        });
+        //start = NO;
+    }
 }
 
 - (void)tap: (UITapGestureRecognizer *)tapGestureRecognizer
 {
+    start = YES;
+    /*
     CGPoint gesturePoint = [tapGestureRecognizer locationInView: self.view];
     
     vector<cv::Point> objectContour;
     objectContour = [self contourAtPoint:[self.pointConvertor CVPointFromCGPoint: gesturePoint]
                                  onImage:[self currentFrame]];
-
     
-    [self.animatedPathView setPathForDisplay: objectContour];
+    [self.animatedPathView setPathForDisplay: objectContour];*/
 }
+
+
+- (std::vector<cv::Point2f>)calcOpticalFlow: (cv::Mat&)image
+{
+    if (previousFrame.empty())
+    {
+        image.copyTo(previousFrame);
+        
+        cv::Mat frameGrayScale;
+        cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
+        
+        cv::goodFeaturesToTrack(frameGrayScale, previousPoints, 3, 0.01, 10);
+        
+        return previousPoints;
+    }
+    
+    cv::Mat frameGrayScale;
+    cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
+    
+    std::vector<cv::Point2f> nextPoints;
+    std::vector<uchar> status;
+    cv::Mat err;
+    
+    cv::calcOpticalFlowPyrLK(previousFrame,
+                             image,
+                             previousPoints,
+                             nextPoints,
+                             status,
+                             err);
+    
+//    for (size_t i = 0; i < nextPoints.size(); i++)
+//    {
+//        if (status[i])
+//        {
+//            cv::line(image, previousPoints[i], nextPoints[i], cv::Scalar(255, 0, 0));
+//        }
+//    }
+    
+    return nextPoints;
+}
+ 
 
 - (vector<cv::Point>)contourAtPoint: (cv::Point)point
                             onImage: (cv::Mat&)image

@@ -28,48 +28,6 @@ using namespace std;
     return self;
 }
 
-/*
-- (std::vector<cv::Point2f>)calcOpticalFlow: (cv::Mat&)image
-{
-    if (savedFrameForTracking == nullptr)
-    {
-        savedFrameForTracking = new cv::Mat();
-        image.copyTo(*savedFrameForTracking);
-        
-        cv::Mat frameGrayScale;
-        cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
-        
-        cv::goodFeaturesToTrack(frameGrayScale, prevPoints, 3, 0.01, 10);
-        
-        return prevPoints;
-    }
-
-    cv::Mat frameGrayScale;
-    cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
-    
-    std::vector<cv::Point2f> nextPoints;
-    std::vector<uchar> status;
-    cv::Mat err;
-    
-    cv::calcOpticalFlowPyrLK(*savedFrameForTracking,
-                             image,
-                             prevPoints,
-                             nextPoints,
-                             status,
-                             err);
-    
-    for (size_t i = 0; i < nextPoints.size(); i++)
-    {
-        if (status[i])
-        {
-            cv::line(image, prevPoints[i], nextPoints[i], cv::Scalar(255, 0, 0));
-        }
-    }
-    
-    return nextPoints;
-}
-*/
-
 # pragma mark - Test name
 
 - (NSString *) currentTestName
@@ -115,6 +73,10 @@ using namespace std;
         {
             return @"Morphological Transform";
         }
+        case THRESHOLD:
+        {
+            return @"Threshold";
+        }
         default:
         {
             return @"";
@@ -129,6 +91,7 @@ using namespace std;
         case GOOD_FEATURES:
         case CANNY_EDGE_DETECTION:
         case MORPH_TRANSFORM:
+        case THRESHOLD:
         {
             return YES;
         }

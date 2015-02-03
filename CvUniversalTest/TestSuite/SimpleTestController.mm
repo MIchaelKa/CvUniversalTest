@@ -38,6 +38,11 @@
             [self morphologicalTransform: frame];
             break;
         }
+        case THRESHOLD:
+        {
+            [self threshold: frame];
+            break;
+        }
     }
 }
 
@@ -50,27 +55,45 @@
     
     cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
     
-    cv::goodFeaturesToTrack(frameGrayScale, corners, 25, 0.01, 10);
+    cv::goodFeaturesToTrack(frameGrayScale, corners, 3, 0.01, 10);
     
     for (size_t i = 0; i < corners.size(); i++) {
-        cv::circle(image, corners[i], 4, cv::Scalar(0, 0, 255));
+        cv::circle(image, corners[i], 4, cv::Scalar(255, 0, 0));
     }
 }
 
 - (void)cannyEdgeDetection: (cv::Mat&)image
 {
-    int thresh = 100;
+    int thresh = 500;
     
     cv::cvtColor(image, image, CV_BGR2GRAY);
-    cv::Canny(image, image, thresh, thresh * 2, 3 );
+    cv::Canny(image, image, thresh, thresh * 3, 5);
 }
 
 - (void)morphologicalTransform: (cv::Mat&)image
 {
-    //[self cannyEdgeDetection: image];
+    [self cannyEdgeDetection: image];
     
-    cv::Mat element = cv::getStructuringElement (cv::MORPH_RECT, cv::Size(5, 5));
-    cv::erode(image, image, element );
+    cv::Mat element = cv::getStructuringElement (cv::MORPH_RECT, cv::Size(3, 3));
+    
+    //cv::erode(image, image, element);
+    cv::dilate(image, image, element);
+    //cv::morphologyEx(image, image, CV_MOP_CLOSE, element);
+    //cv::morphologyEx(image, image, CV_MOP_OPEN, element);
+}
+
+- (void)threshold: (cv::Mat&)image
+{
+    cv::cvtColor(image, image, CV_BGR2GRAY);
+    
+    cv::threshold(image, image, 150, 250, CV_THRESH_BINARY);
+    
+    //cv::adaptiveThreshold(image, image, 250, CV_ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY, 11, 2);
+    
+    cv::Mat element = cv::getStructuringElement (cv::MORPH_ELLIPSE, cv::Size(5, 5));
+    //cv::erode(image, image, element);
+    cv::morphologyEx(image, image, CV_MOP_OPEN, element);
+    //cv::morphologyEx(image, image, CV_MOP_CLOSE, element);
 }
 
 # pragma mark - UI
