@@ -30,6 +30,8 @@
 
 @property (nonatomic, strong) ResultViewController* resultViewController;
 
+@property (nonatomic) BOOL shouldSaveFrames;
+
 @end
 
 @implementation CameraViewController
@@ -92,11 +94,14 @@
     self.videoCamera.defaultFPS = 30;
     self.videoCamera.defaultAVCaptureVideoOrientation = [self captureOrientation];
     self.videoCamera.useAVCaptureVideoPreviewLayer = YES;
+    
+    self.shouldSaveFrames = NO;
 }
 
 - (void)startCamera
 {
     [self.videoCamera start];
+    self.shouldSaveFrames = YES;
     
     self.frameSize = CGSizeMake(self.videoCamera.imageHeight,
                                 self.videoCamera.imageWidth);
@@ -104,7 +109,10 @@
 
 - (void)processImage:(cv::Mat&)image
 {
-    image.copyTo(currentFrame);
+    if (self.shouldSaveFrames)
+    {
+       image.copyTo(currentFrame);
+    }
 }
 
 - (void)processCurrentFrame: (cv::Mat&)frame
@@ -216,20 +224,23 @@
 
 - (void)backToPickerView
 {
-    [self.videoCamera stop];
-    [self.delegate cameraViewControllerDidFinished];    
+    self.shouldSaveFrames = NO;
+    [self.delegate cameraViewControllerDidFinishedWithCompletion:^{
+        [self.videoCamera stop];
+    }];    
 }
 
 - (void)showResults
 {
-    [self.videoCamera stop];
-    //Delegate
+    self.shouldSaveFrames = NO; 
+    
     [self processCurrentFrame: currentFrame];
     
     [self presentViewController: self.resultViewController
                        animated: YES
-                     completion: nil];
-    
+                     completion: ^{
+                         [self.videoCamera stop];
+                     }];
 }
 
 - (void)showSettings
@@ -250,9 +261,6 @@
         }
         case UIInterfaceOrientationLandscapeLeft:
         {
-            self.view.transform = CGAffineTransformMakeRotation(M_PI / 2);
-            self.view.frame = CGRectMake(0, 0, 500, 200);
-
             break;
         }            
         default:

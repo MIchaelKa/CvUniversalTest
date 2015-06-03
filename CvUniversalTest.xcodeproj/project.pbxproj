@@ -421,7 +421,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Michael/Developer/OpenCV,
+					/Users/michael/Developer/OpenCV,
 				);
 				INFOPLIST_FILE = CvUniversalTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -436,7 +436,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Michael/Developer/OpenCV,
+					/Users/michael/Developer/OpenCV,
 				);
 				INFOPLIST_FILE = CvUniversalTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

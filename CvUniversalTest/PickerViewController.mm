@@ -134,9 +134,9 @@ numberOfRowsInComponent:(NSInteger)component
 
 #pragma mark - CameraViewControllerDelegate
 
-- (void)cameraViewControllerDidFinished
+- (void)cameraViewControllerDidFinishedWithCompletion:(void (^)(void))completion
 {
-    [self.testViewController dismissViewControllerAnimated: YES completion: nil];
+    [self.testViewController dismissViewControllerAnimated: YES completion: completion];
     self.testViewController.delegate = nil;
     self.testViewController = nil;
 }

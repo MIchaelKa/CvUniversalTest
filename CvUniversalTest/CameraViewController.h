@@ -15,7 +15,7 @@ using namespace std;
 
 @protocol CameraViewControllerDelegate <NSObject>
 
-- (void)cameraViewControllerDidFinished;
+- (void)cameraViewControllerDidFinishedWithCompletion:(void (^)(void))completion;
 
 @end
 
