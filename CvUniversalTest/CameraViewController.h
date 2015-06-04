@@ -34,6 +34,7 @@ using namespace std;
 @property (nonatomic, strong) UIButton* undoButton;
 @property (nonatomic, strong) UIButton* startButton;
 @property (nonatomic, strong) UIButton* settingsButton;
+@property (nonatomic, strong) UIButton* switchCameraButton;
 
 @property (nonatomic, strong) UILabel* testNameLabel;
 

@@ -36,7 +36,8 @@
     
     // Buttons
     [self addButtons: @[
-                        self.undoButton
+                        self.undoButton,
+                        self.switchCameraButton
                         ]];
     
 }

@@ -166,6 +166,19 @@
     return _settingsButton;
 }
 
+- (UIButton *)switchCameraButton
+{
+    if (!_switchCameraButton)
+    {
+        _switchCameraButton = [UIButton circularButtonWithImageNamed: @"Switch-camera"];
+        
+        [_switchCameraButton addTarget: self
+                                action: @selector(switchCamera)
+                      forControlEvents: UIControlEventTouchUpInside];
+    }
+    return _switchCameraButton;
+}
+
 - (UILabel *)testNameLabel
 {
     if (!_testNameLabel)
@@ -248,6 +261,43 @@
 {
     //Empty implementation
     NSLog(@"CvTest - WARNING - Using empty implementation of showSettings");
+}
+
+- (void)switchCamera
+{
+    if (self.shouldProcessFrames == NO)
+    {
+        while (!self.shouldProcessFrames) {}
+    }
+    else
+    {
+        self.shouldProcessFrames = NO;
+    }
+    [self.videoCamera stop];
+   
+    AVCaptureDevicePosition currentPosition = self.videoCamera.defaultAVCaptureDevicePosition;
+    
+    switch (currentPosition)
+    {
+        case AVCaptureDevicePositionBack:
+        {
+            self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionFront;
+            break;
+        }
+        case AVCaptureDevicePositionFront:
+        {
+            self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
+            break;
+        }
+        case AVCaptureDevicePositionUnspecified:
+        {
+            self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
+            break;
+        }
+    }
+    
+    [self startCamera];
+    [self setupUI];
 }
 
 - (void)orientationDidChange: (NSNotification *)notification
