@@ -77,6 +77,10 @@ using namespace std;
         {
             return @"Threshold";
         }
+        case OBJECT_RECOGNIZER:
+        {
+            return @"Object Recognizer";
+        }
         default:
         {
             return @"";
@@ -97,6 +101,7 @@ using namespace std;
         }
         case FIND_CONTOURS:
         case TRACK_OBJECT:
+        case OBJECT_RECOGNIZER:
         {
             return NO;
         }

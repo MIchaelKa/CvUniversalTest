@@ -89,7 +89,7 @@
 {
     self.videoCamera = [[CvVideoCamera alloc] initWithParentView: self.view];
     self.videoCamera.delegate = self;
-    self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
+    self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionFront;
     self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset640x480;
     self.videoCamera.defaultFPS = 30;
     self.videoCamera.defaultAVCaptureVideoOrientation = [self captureOrientation];

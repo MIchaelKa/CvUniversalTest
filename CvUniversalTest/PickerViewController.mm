@@ -12,6 +12,7 @@
 #import "TestSuite/FindContoursController.h"
 #import "TestSuite/SimpleTestController.h"
 #import "TestSuite/TrackObjectController.h"
+#import "TestSuite/ObjectRecognizerViewController.h"
 
 @interface PickerViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -94,6 +95,10 @@
         case TRACK_OBJECT:
         {
             return [[TrackObjectController alloc] init];
+        }
+        case OBJECT_RECOGNIZER:
+        {
+            return [[ObjectRecognizerViewController alloc] init];
         }
         default:
         {
