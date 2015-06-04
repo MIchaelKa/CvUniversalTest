@@ -23,7 +23,7 @@
 
 @property (nonatomic, strong) ResultViewController* resultViewController;
 
-@property (nonatomic) BOOL shouldSaveFrames;
+
 
 @end
 
@@ -88,13 +88,13 @@
     self.videoCamera.defaultAVCaptureVideoOrientation = [self captureOrientation];
     self.videoCamera.useAVCaptureVideoPreviewLayer = YES;
     
-    self.shouldSaveFrames = NO;
+    self.shouldProcessFrames = NO;
 }
 
 - (void)startCamera
 {
     [self.videoCamera start];
-    self.shouldSaveFrames = YES;
+    self.shouldProcessFrames = YES;
     
     self.frameSize = CGSizeMake(self.videoCamera.imageHeight,
                                 self.videoCamera.imageWidth);
@@ -102,7 +102,7 @@
 
 - (void)processImage:(cv::Mat&)image
 {
-    if (self.shouldSaveFrames)
+    if (self.shouldProcessFrames)
     {
        image.copyTo(currentFrame);
     }
@@ -217,7 +217,15 @@
 
 - (void)backToPickerView
 {
-    self.shouldSaveFrames = NO;
+    if (self.shouldProcessFrames == NO)
+    {
+        while (!self.shouldProcessFrames) {}
+    }
+    else
+    {
+        self.shouldProcessFrames = NO;
+    }
+    
     [self.delegate cameraViewControllerDidFinishedWithCompletion:^{
         [self.videoCamera stop];
     }];    
@@ -225,7 +233,7 @@
 
 - (void)showResults
 {
-    self.shouldSaveFrames = NO; 
+    self.shouldProcessFrames = NO; 
     
     [self processCurrentFrame: currentFrame];
     

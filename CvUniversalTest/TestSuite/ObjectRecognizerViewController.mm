@@ -14,8 +14,6 @@
 {
     cv::CascadeClassifier face_cascade;
     cv::CascadeClassifier eyes_cascade;
-    
-    bool detectionInProcess;
 }
 
 @end
@@ -65,13 +63,11 @@
     {
         NSLog(@"Error loading\n");
     }
-    
-    detectionInProcess = NO;
 }
 
 - (void)processImage:(cv::Mat&)image
 {
-    if (!detectionInProcess)
+    if (self.shouldProcessFrames)
     {
         cv::Mat frame = cv::Mat(image);
         [self detectAndShow: frame];
@@ -80,7 +76,7 @@
 
 - (void)detectAndShow:(cv::Mat&)frame
 {
-    detectionInProcess = YES;
+    self.shouldProcessFrames = NO;
     
     std::vector<cv::Rect> faces;
     cv::Mat frame_gray;
@@ -89,7 +85,7 @@
     cv::equalizeHist( frame_gray, frame_gray );
     
     //-- Detect faces
-    face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
+    face_cascade.detectMultiScale( frame_gray, faces, 1.1, 5, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
     
     NSLog(@"Detected faces: %lu", faces.size());
     
@@ -99,14 +95,8 @@
     {
         cv::Rect rect = faces.at(0);
         
-        points.push_back(cv::Point2f(rect.tl().x, rect.tl().y));
-        points.push_back(cv::Point2f(rect.br().x, rect.tl().y));
-        points.push_back(cv::Point2f(rect.br().x, rect.br().y));
-        points.push_back(cv::Point2f(rect.tl().x, rect.br().y));
-        points.push_back(cv::Point2f(rect.tl().x, rect.tl().y));
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.animatedPathView setPathForDisplay: points];
+            [self.animatedPathView setRectForDisplay:rect];
         });
     }
     
@@ -129,7 +119,7 @@
 //            cv::circle( frame, center, radius, cv::Scalar( 255, 0, 0 ), 4, 8, 0 );
 //        }
 //    }
-    detectionInProcess = NO;
+    self.shouldProcessFrames = YES;
 }
 
 

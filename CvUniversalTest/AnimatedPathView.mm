@@ -33,23 +33,6 @@
     return self;
 }
 
-- (CAShapeLayer *)pathLayer
-{
-    if (!_pathLayer)
-    {
-        _pathLayer = [CAShapeLayer layer];
-        
-        _pathLayer.path = [currentPath CGPath];
-        _pathLayer.strokeColor = [[UIColor grayColor] CGColor];
-        _pathLayer.fillColor = nil;
-        _pathLayer.lineWidth = 3.0f;
-        _pathLayer.lineJoin = kCALineJoinRound;
-        
-        [self.layer addSublayer: _pathLayer];
-    }
-    return _pathLayer;
-}
-
 - (void)setPathForDisplay: (std::vector<cv::Point2f>)path
 {
     UIBezierPath* bezierPath = [UIBezierPath bezierPath];
@@ -69,6 +52,24 @@
         [bezierPath addLineToPoint: [self.pointConvertor CGPointFromCVPoint: path[i]]];
     }
     
+    [self animateBezierPath: bezierPath];
+}
+
+- (void)setRectForDisplay: (cv::Rect)rect
+{
+    CGPoint convertedTL = [self.pointConvertor CGPointFromCVPoint: cv::Point2f(rect.tl().x, rect.tl().y)];
+    CGRect convertedRect = CGRectMake(convertedTL.x,
+                                      convertedTL.y,
+                                      rect.width,
+                                      rect.height);
+    
+    UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRect: convertedRect];
+    
+    [self animateBezierPath: bezierPath];
+}
+
+- (void)animateBezierPath: (UIBezierPath *)bezierPath
+{
     if (!currentPath)
     {
         // first path: nothing to animate
@@ -76,23 +77,36 @@
         [self pathLayer];
         return;
     }
-
+    
     currentPath = pathForDisplay;
     pathForDisplay = bezierPath;
-    [self animate];
-}
-
-- (void)animate
-{
+    
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath: @"path"];
     
-    pathAnimation.duration = 0.5;
+    pathAnimation.duration = 0.3;
     pathAnimation.fromValue = (id)[currentPath CGPath];
     pathAnimation.toValue   = (id)[pathForDisplay CGPath];
     
     pathAnimation.fillMode = kCAFillModeForwards;
     pathAnimation.removedOnCompletion = NO;
     [self.pathLayer addAnimation: pathAnimation forKey: @"animatePath"];
+}
+
+- (CAShapeLayer *)pathLayer
+{
+    if (!_pathLayer)
+    {
+        _pathLayer = [CAShapeLayer layer];
+        
+        _pathLayer.path = [currentPath CGPath];
+        _pathLayer.strokeColor = [[UIColor grayColor] CGColor];
+        _pathLayer.fillColor = nil;
+        _pathLayer.lineWidth = 3.0f;
+        _pathLayer.lineJoin = kCALineJoinRound;
+        
+        [self.layer addSublayer: _pathLayer];
+    }
+    return _pathLayer;
 }
 
 - (PointConvertor *)pointConvertor

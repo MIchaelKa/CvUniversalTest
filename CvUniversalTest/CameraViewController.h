@@ -44,6 +44,7 @@ using namespace std;
 #pragma mark - CvVideoCamera
 
 @property (nonatomic, strong) CvVideoCamera* videoCamera;
+@property (nonatomic) BOOL shouldProcessFrames;
 
 - (void)initCamera;
 

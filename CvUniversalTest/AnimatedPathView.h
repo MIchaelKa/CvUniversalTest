@@ -17,5 +17,6 @@
 @property (nonatomic) CGSize frameSize;
 
 - (void)setPathForDisplay: (std::vector<cv::Point2f>)path;
+- (void)setRectForDisplay: (cv::Rect)rect;
 
 @end
