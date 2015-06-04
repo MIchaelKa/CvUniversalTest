@@ -8,11 +8,6 @@
 
 #import "CameraViewController.h"
 
-#import <opencv2/highgui/ios.h>
-#ifdef __cplusplus
-    #import <opencv2/opencv.hpp>
-#endif
-
 #import "ResultViewController.h"
 #import "UIStoryboard+CvTest.h"
 
@@ -24,8 +19,6 @@
 {
     cv::Mat currentFrame;
 }
-
-@property (nonatomic, strong) CvVideoCamera* videoCamera;
 @property (nonatomic, strong) UIImageView*   resultImageView;
 
 @property (nonatomic, strong) ResultViewController* resultViewController;
@@ -89,7 +82,7 @@
 {
     self.videoCamera = [[CvVideoCamera alloc] initWithParentView: self.view];
     self.videoCamera.delegate = self;
-    self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionFront;
+    self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
     self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset640x480;
     self.videoCamera.defaultFPS = 30;
     self.videoCamera.defaultAVCaptureVideoOrientation = [self captureOrientation];

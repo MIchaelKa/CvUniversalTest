@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import <opencv2/highgui/ios.h>
+#ifdef __cplusplus
+#import <opencv2/opencv.hpp>
+#endif
+
 #import "TestSuite/TestSuite.h"
 #import "AnimatedPathView.h"
 
@@ -36,10 +41,18 @@ using namespace std;
 
 @property (nonatomic) CGSize frameSize;
 
-- (void)setupUI;
-- (void)addButtons: (NSArray *)buttons;
+#pragma mark - CvVideoCamera
+
+@property (nonatomic, strong) CvVideoCamera* videoCamera;
+
+- (void)initCamera;
 
 - (cv::Mat&)currentFrame;
 - (void)processCurrentFrame: (cv::Mat&)frame;
+
+#pragma mark - UI
+
+- (void)setupUI;
+- (void)addButtons: (NSArray *)buttons;
 
 @end

@@ -43,6 +43,14 @@
     
 }
 
+#pragma mark - CvVideoCamera
+
+- (void)initCamera
+{
+    [super initCamera];
+    self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionFront;
+}
+
 - (void)setupClassifiers
 {
     // 1. Load the cascades
@@ -82,8 +90,6 @@
     
     //-- Detect faces
     face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
-    
-    
     
     NSLog(@"Detected faces: %lu", faces.size());
     
