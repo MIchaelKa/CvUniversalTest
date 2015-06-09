@@ -47,7 +47,7 @@
 - (void)initCamera
 {
     [super initCamera];
-    self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionFront;
+    //self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionFront;
 }
 
 - (void)setupClassifiers
@@ -90,22 +90,9 @@
     
     NSLog(@"Detected faces: %lu", faces.size());
     
-    std::vector<cv::Point2f> points;
-    
-    if (faces.size() > 0)
-    {
-        cv::Rect rect = faces.at(0);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.animatedPathView setRectForDisplay:rect];
-        });
-    }
-    else
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.animatedPathView clear];
-        });
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.animatedPathView setRectsForDisplay:faces];
+    });
     
     self.shouldProcessFrames = YES;
 }

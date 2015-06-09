@@ -27,6 +27,7 @@
 		4C11CB7C1A34DFA600121DA4 /* RetrievalModeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C11CB7B1A34DFA600121DA4 /* RetrievalModeController.m */; };
 		4C1AEAFD1A180B700094606A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEAFC1A180B700094606A /* Settings.storyboard */; };
 		4C438AC51A0E78D000CE1D13 /* AnimatedPathView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */; };
+		4C5C1D451B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C1D441B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.m */; };
 		4C5CE9451B204A65006AB193 /* ObjectRecognizerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C5CE9441B204A65006AB193 /* ObjectRecognizerViewController.mm */; };
 		4C5CE9491B20567E006AB193 /* haarcascade_frontalface_default.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4C5CE9481B20567E006AB193 /* haarcascade_frontalface_default.xml */; };
 		4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */; };
@@ -70,6 +71,8 @@
 		4C1AEAFC1A180B700094606A /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		4C438AC31A0E78D000CE1D13 /* AnimatedPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedPathView.h; sourceTree = "<group>"; };
 		4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AnimatedPathView.mm; sourceTree = "<group>"; };
+		4C5C1D431B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+CVUTBezierPath.h"; sourceTree = "<group>"; };
+		4C5C1D441B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+CVUTBezierPath.m"; sourceTree = "<group>"; };
 		4C5CE9431B204A65006AB193 /* ObjectRecognizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectRecognizerViewController.h; sourceTree = "<group>"; };
 		4C5CE9441B204A65006AB193 /* ObjectRecognizerViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjectRecognizerViewController.mm; sourceTree = "<group>"; };
 		4C5CE9481B20567E006AB193 /* haarcascade_frontalface_default.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_frontalface_default.xml; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 		4C0E01F019F9710200EF0736 /* CvUniversalTest */ = {
 			isa = PBXGroup;
 			children = (
+				4C5C1D421B27346900A3FC40 /* Categories */,
 				4C0E022919FAD5AE00EF0736 /* UIElements */,
 				4C0E022A19FAD5C400EF0736 /* Controllers */,
 				4C0E022B19FAD5FA00EF0736 /* TestSuite */,
@@ -224,6 +228,15 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
+		4C5C1D421B27346900A3FC40 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4C5C1D431B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.h */,
+				4C5C1D441B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		4C75CBFB1A28565500DC60D5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C0E01FA19F9710200EF0736 /* PickerViewController.mm in Sources */,
+				4C5C1D451B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.m in Sources */,
 				4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */,
 				4C5CE9451B204A65006AB193 /* ObjectRecognizerViewController.mm in Sources */,
 				4C091D041A1D104F00D098A6 /* FindContoursSettingsController.mm in Sources */,

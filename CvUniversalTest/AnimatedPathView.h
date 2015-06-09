@@ -19,6 +19,8 @@
 - (void)setPathForDisplay: (std::vector<cv::Point2f>)path;
 - (void)setRectForDisplay: (cv::Rect)rect;
 
+- (void)setRectsForDisplay: (std::vector<cv::Rect>)rects;
+
 - (void)clear;
 
 @end
