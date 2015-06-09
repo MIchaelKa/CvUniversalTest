@@ -68,6 +68,11 @@
     [self animateBezierPath: bezierPath];
 }
 
+- (void)clear
+{
+    [self.pathLayer removeAllAnimations];
+}
+
 - (void)animateBezierPath: (UIBezierPath *)bezierPath
 {
     if (!currentPath)
