@@ -234,10 +234,8 @@
     {
         while (!self.shouldProcessFrames) {}
     }
-    else
-    {
-        self.shouldProcessFrames = NO;
-    }
+
+    self.shouldProcessFrames = NO;
     
     [self.delegate cameraViewControllerDidFinishedWithCompletion:^{
         [self.videoCamera stop];
