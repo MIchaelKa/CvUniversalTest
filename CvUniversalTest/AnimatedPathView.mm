@@ -201,7 +201,7 @@
     CAShapeLayer* shapeLayer = [CAShapeLayer layer];
     
     shapeLayer.path = path;
-    shapeLayer.strokeColor = [[UIColor grayColor] CGColor];
+    shapeLayer.strokeColor = [[self randomColor] CGColor];
     shapeLayer.fillColor = nil;
     shapeLayer.lineWidth = 3.0f;
     shapeLayer.lineJoin = kCALineJoinRound;
@@ -209,6 +209,20 @@
     [self.layer addSublayer: shapeLayer];
     
     return shapeLayer;
+}
+
+- (UIColor *)randomColor
+{
+    switch (arc4random() % 6 )
+    {
+        case 0: return [UIColor greenColor];
+        case 1: return [UIColor blueColor];
+        case 2: return [UIColor orangeColor];
+        case 3: return [UIColor redColor];
+        case 4: return [UIColor purpleColor];
+        case 5: return [UIColor yellowColor];
+    }
+    return [UIColor grayColor];
 }
 
 #pragma mark - Single path animation
