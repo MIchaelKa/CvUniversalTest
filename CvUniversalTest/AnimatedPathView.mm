@@ -20,6 +20,7 @@
 @property (nonatomic, strong) CAShapeLayer* pathLayer;
 
 @property (nonatomic, strong) NSMutableArray* paths;
+@property (nonatomic, strong) NSMutableArray* pathsForSearch;
 @property (nonatomic, strong) NSMutableArray* shapeLayers;
 
 @property (nonatomic, strong) PointConvertor* pointConvertor;
@@ -88,27 +89,62 @@
         [self.paths addObject:bezierPath];
         [self.shapeLayers addObject: shapeLayer];
     }
+
+    self.pathsForSearch = [[NSMutableArray alloc] initWithArray: self.paths];
     
     NSMutableArray* currentPaths = [[NSMutableArray alloc] initWithArray: self.paths];
     
-    // 2 - Animate existing layers
+    NSMutableIndexSet *layersInUse = [NSMutableIndexSet indexSet];
+    NSMutableIndexSet *layersToRemove = [NSMutableIndexSet indexSet];
+    
+    // 2 - Find layers to animate
     for (size_t i = 0; i < rects.size(); i++)
     {
         UIBezierPath* bezierPath = [self bezierPathFromRect:rects[i]];
         UIBezierPath* previousPath = [self findPreviousPathFor:bezierPath];
         
         NSInteger index = [self.paths indexOfObject:previousPath];
-        NSLog(@"index: %d", index);
-        
+        [layersInUse addIndex:index];
         [currentPaths replaceObjectAtIndex:index withObject:bezierPath];
-        CAShapeLayer* shapeLayer = self.shapeLayers[index];
+        
+        NSLog(@"index: %d", index);
+    }
+    
+    // 4 - Find layers to remove
+    for (NSInteger i = 0; i < self.paths.count; i++)
+    {
+        if (![layersInUse containsIndex:i])
+        {
+            [layersToRemove addIndex:i];
+        }
+    }
+    
+    // 5 - Remove unused layers and paths
+    [currentPaths removeObjectsAtIndexes: layersToRemove];
+    [self.paths removeObjectsAtIndexes: layersToRemove];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [layersToRemove enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
+        CAShapeLayer* shapeLayer = weakSelf.shapeLayers[idx];
+        shapeLayer.path = nil;
+        [shapeLayer removeAllAnimations];
+        [shapeLayer removeFromSuperlayer];
+    }];
+    
+    [self.shapeLayers removeObjectsAtIndexes: layersToRemove];
+    
+    // 6 - Animate
+    for (NSInteger i = 0; i < self.shapeLayers.count; i++)
+    {
+        CAShapeLayer* shapeLayer = self.shapeLayers[i];
         
         // Create Animation
         CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath: @"path"];
         
         pathAnimation.duration = 0.3;
-        pathAnimation.fromValue = (id)[previousPath CGPath];
-        pathAnimation.toValue   = (id)[bezierPath CGPath];
+        pathAnimation.fromValue = (id)[self.paths[i] CGPath];
+        pathAnimation.toValue   = (id)[currentPaths[i] CGPath];
         
         pathAnimation.fillMode = kCAFillModeForwards;
         pathAnimation.removedOnCompletion = NO;
@@ -118,23 +154,6 @@
     }
     
     self.paths = currentPaths;
-    
-    // 3 - Remove unused layers
-    NSMutableIndexSet *layersToRemove = [NSMutableIndexSet indexSet];
-    
-    for (size_t i = rects.size(); i < self.paths.count; i++)
-    {
-        CAShapeLayer* shapeLayer = self.shapeLayers[i];
-        
-        shapeLayer.path = nil;
-        [shapeLayer removeAllAnimations];
-        [shapeLayer removeFromSuperlayer];
-        
-        [layersToRemove addIndex:i];
-    }
-    
-    [self.paths removeObjectsAtIndexes: layersToRemove];
-    [self.shapeLayers removeObjectsAtIndexes: layersToRemove];    
 }
 
 - (UIBezierPath *)bezierPathFromRect: (cv::Rect)rect
@@ -150,29 +169,49 @@
 
 - (UIBezierPath *)findPreviousPathFor: (UIBezierPath *)path
 {
-    if (self.paths.count == 0)
+    if (self.pathsForSearch.count == 0)
     {
         NSLog(@"ERROR: There are no paths to search!");
         return nil;
     }
     
-    UIBezierPath * previousPath = self.paths[0];
+    UIBezierPath * previousPath = self.pathsForSearch[0];
     CGFloat minDistance = [path distanceFromPath:previousPath];
+    NSInteger index = 0;
     
-    for (NSInteger i = 1; i < self.paths.count; i++)
+    for (NSInteger i = 1; i < self.pathsForSearch.count; i++)
     {
-        UIBezierPath * currPath = self.paths[i];
+        UIBezierPath * currPath = self.pathsForSearch[i];
         CGFloat currDistance = [path distanceFromPath:currPath];
         
         if (currDistance < minDistance)
         {
             minDistance = currDistance;
             previousPath = currPath;
+            index = i;
         }
     }
-
+    
+    [self.pathsForSearch removeObjectAtIndex:index];
     return previousPath;
 }
+
+- (CAShapeLayer *)shapeLayerWithInintialPath: (CGPathRef)path
+{
+    CAShapeLayer* shapeLayer = [CAShapeLayer layer];
+    
+    shapeLayer.path = path;
+    shapeLayer.strokeColor = [[UIColor grayColor] CGColor];
+    shapeLayer.fillColor = nil;
+    shapeLayer.lineWidth = 3.0f;
+    shapeLayer.lineJoin = kCALineJoinRound;
+    
+    [self.layer addSublayer: shapeLayer];
+    
+    return shapeLayer;
+}
+
+#pragma mark - Single path animation
 
 - (void)clear
 {
@@ -219,21 +258,6 @@
         [self.layer addSublayer: _pathLayer];
     }
     return _pathLayer;
-}
-
-- (CAShapeLayer *)shapeLayerWithInintialPath: (CGPathRef)path
-{
-    CAShapeLayer* shapeLayer = [CAShapeLayer layer];
-    
-    shapeLayer.path = path;
-    shapeLayer.strokeColor = [[UIColor grayColor] CGColor];
-    shapeLayer.fillColor = nil;
-    shapeLayer.lineWidth = 3.0f;
-    shapeLayer.lineJoin = kCALineJoinRound;
-    
-    [self.layer addSublayer: shapeLayer];
-    
-    return shapeLayer;
 }
 
 - (PointConvertor *)pointConvertor
