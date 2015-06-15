@@ -15,6 +15,7 @@
 
 #import "TestSuite/TestSuite.h"
 #import "AnimatedPathView.h"
+#import "DynamicResultView.h"
 
 using namespace std;
 
@@ -39,6 +40,7 @@ using namespace std;
 @property (nonatomic, strong) UILabel* testNameLabel;
 
 @property (nonatomic, strong) AnimatedPathView* animatedPathView;
+@property (nonatomic, strong) DynamicResultView* dynamicResultView;
 
 @property (nonatomic) CGSize frameSize;
 

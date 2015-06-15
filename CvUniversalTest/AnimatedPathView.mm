@@ -107,7 +107,7 @@
         [layersInUse addIndex:index];
         [currentPaths replaceObjectAtIndex:index withObject:bezierPath];
         
-        NSLog(@"index: %d", index);
+        NSLog(@"index: %ld", (long)index);
     }
     
     // 4 - Find layers to remove

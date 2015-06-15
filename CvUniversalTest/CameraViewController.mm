@@ -200,6 +200,16 @@
     return _animatedPathView;
 }
 
+- (DynamicResultView *)dynamicResultView
+{
+    if(!_dynamicResultView)
+    {
+        _dynamicResultView = [[DynamicResultView alloc] initWithFrame:self.view.bounds];
+        _dynamicResultView.frameSize = self.frameSize;
+    }
+    return _dynamicResultView;
+}
+
 - (void)setupUI
 {
     // Labels

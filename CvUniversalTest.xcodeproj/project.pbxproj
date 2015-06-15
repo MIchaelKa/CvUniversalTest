@@ -32,6 +32,7 @@
 		4C5CE9491B20567E006AB193 /* haarcascade_frontalface_default.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4C5CE9481B20567E006AB193 /* haarcascade_frontalface_default.xml */; };
 		4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */; };
 		4C75CBFE1A28581A00DC60D5 /* PointConvertor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C75CBFD1A28581A00DC60D5 /* PointConvertor.mm */; };
+		4C791CC61B2EFA7D00F92334 /* DynamicResultView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C791CC51B2EFA7D00F92334 /* DynamicResultView.mm */; };
 		4CA691521A1A763300AF679D /* FindContoursController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691511A1A763300AF679D /* FindContoursController.mm */; };
 		4CA691551A1A780700AF679D /* SimpleTestController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691541A1A780700AF679D /* SimpleTestController.mm */; };
 		4CA691581A1A7C2E00AF679D /* TrackObjectController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691571A1A7C2E00AF679D /* TrackObjectController.mm */; };
@@ -80,6 +81,8 @@
 		4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+CvTest.m"; sourceTree = "<group>"; };
 		4C75CBFC1A28581A00DC60D5 /* PointConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointConvertor.h; sourceTree = "<group>"; };
 		4C75CBFD1A28581A00DC60D5 /* PointConvertor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PointConvertor.mm; sourceTree = "<group>"; };
+		4C791CC41B2EFA7D00F92334 /* DynamicResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicResultView.h; sourceTree = "<group>"; };
+		4C791CC51B2EFA7D00F92334 /* DynamicResultView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DynamicResultView.mm; sourceTree = "<group>"; };
 		4CA691501A1A763300AF679D /* FindContoursController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindContoursController.h; sourceTree = "<group>"; };
 		4CA691511A1A763300AF679D /* FindContoursController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FindContoursController.mm; sourceTree = "<group>"; };
 		4CA691531A1A780700AF679D /* SimpleTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTestController.h; sourceTree = "<group>"; };
@@ -164,6 +167,8 @@
 			children = (
 				4C438AC31A0E78D000CE1D13 /* AnimatedPathView.h */,
 				4C438AC41A0E78D000CE1D13 /* AnimatedPathView.mm */,
+				4C791CC41B2EFA7D00F92334 /* DynamicResultView.h */,
+				4C791CC51B2EFA7D00F92334 /* DynamicResultView.mm */,
 				4C0E022619F9921D00EF0736 /* UIButton+CircularStyle.h */,
 				4C0E022719F9921D00EF0736 /* UIButton+CircularStyle.m */,
 				4C0E023519FD134B00EF0736 /* UILabel+HeaderStyle.h */,
@@ -319,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C0E01FA19F9710200EF0736 /* PickerViewController.mm in Sources */,
+				4C791CC61B2EFA7D00F92334 /* DynamicResultView.mm in Sources */,
 				4C5C1D451B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.m in Sources */,
 				4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */,
 				4C5CE9451B204A65006AB193 /* ObjectRecognizerViewController.mm in Sources */,

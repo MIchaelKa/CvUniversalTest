@@ -39,9 +39,10 @@
     if(start)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.animatedPathView setPathForDisplay: [self calcOpticalFlow:image]];
+            [self.dynamicResultView setPointsForDisplay: [self calcOpticalFlow:image]];
         });
-        //start = NO;
+        
+        start = NO;
     }
 }
 
@@ -68,7 +69,7 @@
         cv::Mat frameGrayScale;
         cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
         
-        cv::goodFeaturesToTrack(frameGrayScale, previousPoints, 3, 0.01, 10);
+        cv::goodFeaturesToTrack(frameGrayScale, previousPoints, 10, 0.01, 10);
         
         return previousPoints;
     }
@@ -86,14 +87,7 @@
                              nextPoints,
                              status,
                              err);
-    
-//    for (size_t i = 0; i < nextPoints.size(); i++)
-//    {
-//        if (status[i])
-//        {
-//            cv::line(image, previousPoints[i], nextPoints[i], cv::Scalar(255, 0, 0));
-//        }
-//    }
+
     
     return nextPoints;
 }
@@ -138,7 +132,7 @@
 {
     [super setupUI];
     // Views
-    [self.view addSubview: self.animatedPathView];
+    [self.view addSubview: self.dynamicResultView];
     
     // Buttons
     [self addButtons: @[
