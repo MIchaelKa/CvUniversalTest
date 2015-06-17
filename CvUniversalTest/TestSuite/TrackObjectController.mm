@@ -61,6 +61,15 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.dynamicResultView setPointsForDisplay: previousPoints];
         });
+        
+        return;
+    }
+    
+    if (previousPoints.size() == 0)
+    {
+        previousFrameGray = cv::Mat();
+        start = NO;
+        return;
     }
     
     // Calc optical flow
