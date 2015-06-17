@@ -12,9 +12,8 @@
 
 @interface TrackObjectController ()
 {
-    cv::Mat previousFrame;
+    cv::Mat previousFrameGray;
     std::vector<cv::Point2f> previousPoints;
-    std::vector<cv::Point2f> pathToDisplay;
     
     BOOL start;
 }
@@ -38,42 +37,33 @@
 {
     if(start)
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.dynamicResultView setPointsForDisplay: [self calcOpticalFlow:image]];
-        });
-        
-        start = NO;
+        [self calcOpticalFlow:image];
     }
 }
 
 - (void)tap: (UITapGestureRecognizer *)tapGestureRecognizer
 {
     start = YES;
-    /*
-    CGPoint gesturePoint = [tapGestureRecognizer locationInView: self.view];
-    
-    vector<cv::Point> objectContour;
-    objectContour = [self contourAtPoint:[self.pointConvertor CVPointFromCGPoint: gesturePoint]
-                                 onImage:[self currentFrame]];
-    
-    [self.animatedPathView setPathForDisplay: objectContour];*/
 }
 
-
-- (std::vector<cv::Point2f>)calcOpticalFlow: (cv::Mat&)image
+- (void)calcOpticalFlow: (cv::Mat&)image
 {
-    if (previousFrame.empty())
+    // First frame
+    if (previousFrameGray.empty())
     {
-        image.copyTo(previousFrame);
-        
         cv::Mat frameGrayScale;
         cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
         
-        cv::goodFeaturesToTrack(frameGrayScale, previousPoints, 10, 0.01, 10);
+        frameGrayScale.copyTo(previousFrameGray);
         
-        return previousPoints;
+        cv::goodFeaturesToTrack(frameGrayScale, previousPoints, 10, 0.3, 10);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.dynamicResultView setPointsForDisplay: previousPoints];
+        });
     }
     
+    // Calc optical flow
     cv::Mat frameGrayScale;
     cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
     
@@ -81,15 +71,31 @@
     std::vector<uchar> status;
     cv::Mat err;
     
-    cv::calcOpticalFlowPyrLK(previousFrame,
-                             image,
+    cv::calcOpticalFlowPyrLK(previousFrameGray,
+                             frameGrayScale,
                              previousPoints,
                              nextPoints,
                              status,
                              err);
-
     
-    return nextPoints;
+    // Find good points
+    std::vector<cv::Point2f> goodPoints;
+    for (size_t i = 0; i < status.size(); i++)
+    {
+        if (status[i] == 1)
+        {
+            goodPoints.push_back(nextPoints[i]);
+        }
+    }
+    
+    // Draw found points
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.dynamicResultView setPointsForDisplay: goodPoints];
+    });
+    
+    // Save current frame and points
+    frameGrayScale.copyTo(previousFrameGray);
+    previousPoints = goodPoints;
 }
  
 
@@ -138,7 +144,6 @@
     [self addButtons: @[
                         self.undoButton
                         ]];
-
 }
 
 - (UITapGestureRecognizer *)tapGestureRecognizer

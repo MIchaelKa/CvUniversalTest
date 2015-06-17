@@ -55,7 +55,7 @@
     
     cv::cvtColor(image, frameGrayScale, CV_BGR2GRAY);
     
-    cv::goodFeaturesToTrack(frameGrayScale, corners, 3, 0.01, 10);
+    cv::goodFeaturesToTrack(frameGrayScale, corners, 100, 0.3, 10);
     
     for (size_t i = 0; i < corners.size(); i++) {
         cv::circle(image, corners[i], 4, cv::Scalar(255, 0, 0));
