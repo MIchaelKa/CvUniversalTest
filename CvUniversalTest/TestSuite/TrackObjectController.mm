@@ -15,6 +15,9 @@
     cv::Mat previousFrameGray;
     std::vector<cv::Point2f> previousPoints;
     
+    CGPoint gesturePoint;
+    cv::Rect ROIRect;
+    
     BOOL start;
 }
 
@@ -37,6 +40,9 @@
 {
     if(start)
     {
+        ROIRect = [self rectAtPoint:[self.pointConvertor CVPointFromCGPoint: gesturePoint]
+                            onImage:image];
+        
         [self calcOpticalFlow:image];
     }
 }
@@ -44,6 +50,9 @@
 - (void)tap: (UITapGestureRecognizer *)tapGestureRecognizer
 {
     start = YES;
+    gesturePoint = [tapGestureRecognizer locationInView: self.view];
+    
+    //cv::Mat ROIMat(img, cv::Rect(10,10,100,100));
 }
 
 - (void)calcOpticalFlow: (cv::Mat&)image
@@ -99,14 +108,35 @@
     
     // Draw found points
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.dynamicResultView setPointsForDisplay: goodPoints];
+        [self.dynamicResultView setPoints: goodPoints
+                           andRectForDisp: ROIRect];
     });
     
     // Save current frame and points
     frameGrayScale.copyTo(previousFrameGray);
     previousPoints = goodPoints;
 }
- 
+
+- (cv::Rect)rectAtPoint: (cv::Point)point
+                onImage: (cv::Mat&)image
+{
+    vector<vector<cv::Point>> contours;
+    cv::Rect resultRect;
+    
+    contours = [self findContoursOnImage: image];
+    
+    for (int i = 0; i < contours.size(); i++)
+    {
+        cv::Rect rect = cv::boundingRect(contours[i]);
+        if (rect.contains(point))
+        {
+            resultRect = rect;
+        }
+    }
+    
+    return resultRect;
+}
+
 
 - (vector<cv::Point>)contourAtPoint: (cv::Point)point
                             onImage: (cv::Mat&)image
@@ -174,8 +204,5 @@
     }
     return _pointConvertor;
 }
-
-
-
 
 @end

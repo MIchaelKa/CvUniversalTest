@@ -21,4 +21,7 @@ using namespace cv;
 
 - (void)setPointsForDisplay: (vector<Point2f>)points;
 
+- (void)setPoints: (vector<Point2f>)points
+   andRectForDisp: (cv::Rect)rect;
+
 @end

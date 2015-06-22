@@ -24,4 +24,6 @@
 - (CGPoint)CGPointFromCVPoint: (cv::Point2f)point;
 - (cv::Point2f)CVPointFromCGPoint: (CGPoint)point;
 
+- (CGRect)CGRectFromCVRect: (cv::Rect)rect;
+
 @end

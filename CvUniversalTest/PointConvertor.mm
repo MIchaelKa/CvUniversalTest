@@ -59,6 +59,17 @@
                         point.y / conversionRate);
 }
 
+- (CGRect)CGRectFromCVRect: (cv::Rect)rect
+{
+    CGPoint convertedTL = [self CGPointFromCVPoint: rect.tl()];
+    CGPoint convertedBR = [self CGPointFromCVPoint: rect.br()];
+    
+    return CGRectMake(convertedTL.x,
+                      convertedTL.y,
+                      convertedBR.x - convertedTL.x,
+                      convertedBR.y - convertedTL.y);
+}
+
 
 
 @end

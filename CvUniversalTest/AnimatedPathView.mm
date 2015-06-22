@@ -65,19 +65,6 @@
     [self animateBezierPath: bezierPath];
 }
 
-- (void)setRectForDisplay: (cv::Rect)rect
-{
-    CGPoint convertedTL = [self.pointConvertor CGPointFromCVPoint: cv::Point2f(rect.tl().x, rect.tl().y)];
-    CGRect convertedRect = CGRectMake(convertedTL.x,
-                                      convertedTL.y,
-                                      rect.width,
-                                      rect.height);
-    
-    UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRect: convertedRect];
-    
-    [self animateBezierPath: bezierPath];
-}
-
 - (void)setRectsForDisplay: (std::vector<cv::Rect>)rects;
 {
     // 1 - Add new layers
@@ -158,15 +145,7 @@
 
 - (UIBezierPath *)bezierPathFromRect: (cv::Rect)rect
 {
-    CGPoint convertedTL = [self.pointConvertor CGPointFromCVPoint: rect.tl()];
-    CGPoint convertedBR = [self.pointConvertor CGPointFromCVPoint: rect.br()];
-    
-    CGRect convertedRect = CGRectMake(convertedTL.x,
-                                      convertedTL.y,
-                                      convertedBR.x - convertedTL.x,
-                                      convertedBR.y - convertedTL.y);
-    
-    return [UIBezierPath bezierPathWithRect: convertedRect];
+    return [UIBezierPath bezierPathWithRect: [self.pointConvertor CGRectFromCVRect: rect]];
 }
 
 - (UIBezierPath *)findPreviousPathFor: (UIBezierPath *)path

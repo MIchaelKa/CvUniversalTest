@@ -13,6 +13,7 @@
 @interface DynamicResultView ()
 {
     vector<Point2f> pointsForDisplay;
+    cv::Rect rectForDisplay;
 }
 
 @property (nonatomic, strong) PointConvertor* pointConvertor;
@@ -41,17 +42,26 @@
     [self setNeedsDisplay];
 }
 
+- (void)setPoints: (vector<Point2f>)points
+   andRectForDisp: (cv::Rect)rect
+{
+    pointsForDisplay = points;
+    rectForDisplay = rect;
+    
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect
 {
-    if (pointsForDisplay.size() == 0)
+    if (![self shouldRedraw])
     {
         return;
     }
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     
+    // Draw points
     CGContextSetStrokeColorWithColor(context, [[UIColor redColor] CGColor]);
-    CGContextSetFillColorWithColor(context, [[UIColor redColor] CGColor]);
     CGContextSetLineWidth(context, 1);
     
     for (size_t i = 0; i < pointsForDisplay.size(); i++)
@@ -60,9 +70,32 @@
         CGContextAddArc(context, circleCenter.x, circleCenter.y, 5, 0, 360, NO);
         
         CGContextStrokePath(context);
-    }    
+    }
+    
+    // Draw rect
+    CGContextSetStrokeColorWithColor(context, [[UIColor yellowColor] CGColor]);
+    CGContextSetLineWidth(context, 2);
+    
+    if (rectForDisplay.width  != 0 && rectForDisplay.height != 0)
+    {
+        CGContextStrokeRect(context, [self.pointConvertor CGRectFromCVRect: rectForDisplay]);
+    }
     
     UIGraphicsEndImageContext();
+}
+
+- (BOOL)shouldRedraw
+{
+    if (pointsForDisplay.size() == 0 &&
+        rectForDisplay.width == 0 &&
+        rectForDisplay.height == 0)
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
 }
 
 - (PointConvertor *)pointConvertor
