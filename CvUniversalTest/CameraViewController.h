@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <opencv2/highgui/ios.h>
 #ifdef __cplusplus
-#import <opencv2/opencv.hpp>
+    #import <opencv2/highgui/ios.h>
+    #import <opencv2/opencv.hpp>
 #endif
 
 #import "TestSuite/TestSuite.h"
@@ -55,6 +55,9 @@ using namespace std;
 - (void)processCurrentFrame: (cv::Mat&)frame;
 
 #pragma mark - UI
+
+- (void)startButtonAction;
+- (void)presentResultViewController;
 
 - (void)setupUI;
 - (void)addButtons: (NSArray *)buttons;

@@ -78,6 +78,7 @@
     {
         previousFrameGray = cv::Mat();
         start = NO;
+        
         return;
     }
     

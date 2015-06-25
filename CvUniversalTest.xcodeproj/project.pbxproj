@@ -36,6 +36,7 @@
 		4CA691521A1A763300AF679D /* FindContoursController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691511A1A763300AF679D /* FindContoursController.mm */; };
 		4CA691551A1A780700AF679D /* SimpleTestController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691541A1A780700AF679D /* SimpleTestController.mm */; };
 		4CA691581A1A7C2E00AF679D /* TrackObjectController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691571A1A7C2E00AF679D /* TrackObjectController.mm */; };
+		4CDBAFB21B3C1DE20044A902 /* DepthMapTestVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CDBAFB11B3C1DE20044A902 /* DepthMapTestVC.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,8 @@
 		4CA691541A1A780700AF679D /* SimpleTestController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleTestController.mm; sourceTree = "<group>"; };
 		4CA691561A1A7C2E00AF679D /* TrackObjectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackObjectController.h; sourceTree = "<group>"; };
 		4CA691571A1A7C2E00AF679D /* TrackObjectController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TrackObjectController.mm; sourceTree = "<group>"; };
+		4CDBAFB01B3C1DE20044A902 /* DepthMapTestVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepthMapTestVC.h; sourceTree = "<group>"; };
+		4CDBAFB11B3C1DE20044A902 /* DepthMapTestVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DepthMapTestVC.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +205,8 @@
 				4CA691571A1A7C2E00AF679D /* TrackObjectController.mm */,
 				4C5CE9431B204A65006AB193 /* ObjectRecognizerViewController.h */,
 				4C5CE9441B204A65006AB193 /* ObjectRecognizerViewController.mm */,
+				4CDBAFB01B3C1DE20044A902 /* DepthMapTestVC.h */,
+				4CDBAFB11B3C1DE20044A902 /* DepthMapTestVC.mm */,
 			);
 			name = TestSuite;
 			path = CvUniversalTest/TestSuite;
@@ -326,6 +331,7 @@
 				4C0E01FA19F9710200EF0736 /* PickerViewController.mm in Sources */,
 				4C791CC61B2EFA7D00F92334 /* DynamicResultView.mm in Sources */,
 				4C5C1D451B2734CB00A3FC40 /* UIBezierPath+CVUTBezierPath.m in Sources */,
+				4CDBAFB21B3C1DE20044A902 /* DepthMapTestVC.mm in Sources */,
 				4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */,
 				4C5CE9451B204A65006AB193 /* ObjectRecognizerViewController.mm in Sources */,
 				4C091D041A1D104F00D098A6 /* FindContoursSettingsController.mm in Sources */,

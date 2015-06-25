@@ -147,7 +147,7 @@
         _startButton = [UIButton circularButtonWithImageNamed: @"Start"];
         
         [_startButton addTarget: self
-                         action: @selector(showResults)
+                         action: @selector(startButtonAction)
                forControlEvents: UIControlEventTouchUpInside];
     }
     return _startButton;
@@ -252,12 +252,16 @@
     }];    
 }
 
-- (void)showResults
+- (void)startButtonAction
 {
-    self.shouldProcessFrames = NO; 
+    self.shouldProcessFrames = NO;
     
     [self processCurrentFrame: currentFrame];
-    
+    [self presentResultViewController];
+}
+
+- (void)presentResultViewController
+{
     [self presentViewController: self.resultViewController
                        animated: YES
                      completion: ^{

@@ -13,6 +13,7 @@
 #import "TestSuite/SimpleTestController.h"
 #import "TestSuite/TrackObjectController.h"
 #import "TestSuite/ObjectRecognizerViewController.h"
+#import "TestSuite/DepthMapTestVC.h"
 
 @interface PickerViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -99,6 +100,10 @@
         case OBJECT_RECOGNIZER:
         {
             return [[ObjectRecognizerViewController alloc] init];
+        }
+        case DEPTH_MAP:
+        {
+            return [[DepthMapTestVC alloc] init];
         }
         default:
         {

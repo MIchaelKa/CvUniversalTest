@@ -81,6 +81,10 @@ using namespace std;
         {
             return @"Object Recognizer";
         }
+        case DEPTH_MAP:
+        {
+            return @"Depth Map";
+        }
         default:
         {
             return @"";
@@ -102,6 +106,7 @@ using namespace std;
         case FIND_CONTOURS:
         case TRACK_OBJECT:
         case OBJECT_RECOGNIZER:
+        case DEPTH_MAP:
         {
             return NO;
         }

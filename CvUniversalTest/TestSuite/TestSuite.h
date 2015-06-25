@@ -22,6 +22,7 @@ NS_ENUM(NSInteger, CvTest)
     MORPH_TRANSFORM,
     THRESHOLD,
     OBJECT_RECOGNIZER,
+    DEPTH_MAP,
     
     CV_TEST_COUNT
 
