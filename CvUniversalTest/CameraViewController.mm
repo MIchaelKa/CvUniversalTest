@@ -17,13 +17,11 @@
 
 @interface CameraViewController () <CvVideoCameraDelegate>
 {
-    cv::Mat currentFrame;
+    cv::Mat currentFrame; // + frame for result;
 }
+
 @property (nonatomic, strong) UIImageView*   resultImageView;
-
 @property (nonatomic, strong) ResultViewController* resultViewController;
-
-
 
 @end
 

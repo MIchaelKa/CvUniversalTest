@@ -54,7 +54,7 @@
     else
     {
         self.currentFrame.copyTo(rightImage);
-        [self computeDepthMap];        
+        [self computeDepthMap];
         
         [self presentResultViewController];
         
@@ -63,6 +63,12 @@
 }
 
 - (void)computeDepthMap
+{
+    //[self computeDepthMapStereoBM];
+    [self computeDepthMapOpticalFlow];
+}
+
+- (void)computeDepthMapStereoBM
 {
     cv::cvtColor(leftImage, leftImage, CV_BGR2GRAY);
     cv::cvtColor(rightImage, rightImage, CV_BGR2GRAY);
@@ -90,6 +96,30 @@
     normalize(imgDisparity16S, imgDisparity8U, 0, 255, CV_MINMAX, CV_8U);
     
     imgDisparity8U.copyTo(self.currentFrame);
+}
+
+- (void)computeDepthMapOpticalFlow
+{
+    cv::cvtColor(leftImage, leftImage, CV_BGR2GRAY);
+    cv::cvtColor(rightImage, rightImage, CV_BGR2GRAY);
+    
+    Mat flow;
+    
+    calcOpticalFlowFarneback(leftImage, rightImage, flow, 0.5, 3, 15, 3, 5, 1.2, 0 );
+    
+    // Separate flow mat. Preparing for cartToPolar
+    vector<Mat> flowPlanes;
+    split(flow, flowPlanes);
+    
+    Mat magnitudes;
+    Mat angles;
+    
+    cartToPolar(flowPlanes[0], flowPlanes[1], magnitudes, angles);
+    
+    Mat resultImage = Mat(leftImage.rows, leftImage.cols, CV_8UC1);
+    normalize(magnitudes, resultImage, 0, 255, CV_MINMAX, CV_8U);
+    
+    resultImage.copyTo(self.currentFrame);
 }
 
 @end
