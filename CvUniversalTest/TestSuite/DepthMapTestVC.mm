@@ -107,19 +107,34 @@
     
     calcOpticalFlowFarneback(leftImage, rightImage, flow, 0.5, 3, 15, 3, 5, 1.2, 0 );
     
-    // Separate flow mat. Preparing for cartToPolar
-    vector<Mat> flowPlanes;
-    split(flow, flowPlanes);
+    Scalar color = Scalar(255);
     
-    Mat magnitudes;
-    Mat angles;
+    for (int y = 0; y < flow.rows; y += 20)
+    {
+        for (int x = 0; x < flow.cols; x += 20)
+        {
+            Point2f point = flow.at<Point2f>(y, x);
+            
+            arrowedLine(leftImage,
+                        Point2f(x, y),
+                        Point2f((int)(x + point.x), (int)(y + point.y)),
+                        color);
+        }
+    }
     
-    cartToPolar(flowPlanes[0], flowPlanes[1], magnitudes, angles);
+//    // Separate flow mat. Preparing for cartToPolar
+//    vector<Mat> flowPlanes;
+//    split(flow, flowPlanes);
+//    
+//    Mat magnitudes;
+//    Mat angles;
+//    
+//    Mat resultImage = Mat(leftImage.rows, leftImage.cols, CV_8UC1);
+//    cartToPolar(flowPlanes[0], flowPlanes[1], magnitudes, angles);
+//    normalize(magnitudes, resultImage, 0, 255, CV_MINMAX, CV_8U);
+//    resultImage.copyTo(self.currentFrame);
     
-    Mat resultImage = Mat(leftImage.rows, leftImage.cols, CV_8UC1);
-    normalize(magnitudes, resultImage, 0, 255, CV_MINMAX, CV_8U);
-    
-    resultImage.copyTo(self.currentFrame);
+    leftImage.copyTo(self.currentFrame);
 }
 
 @end
