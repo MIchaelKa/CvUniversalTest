@@ -42,30 +42,36 @@
 
 - (void)startButtonAction
 {
-    self.shouldProcessFrames = NO;
+//    self.shouldProcessFrames = NO;
+//    
+//    if (leftImageSaved == NO)
+//    {
+//        self.currentFrame.copyTo(leftImage);
+//        leftImageSaved = YES;
+//        
+//        self.shouldProcessFrames = YES;
+//    }
+//    else
+//    {
+//        self.currentFrame.copyTo(rightImage);
+//        [self computeDepthMap];
+//        
+//        [self presentResultViewController];
+//        
+//        leftImageSaved = NO;
+//    }
     
-    if (leftImageSaved == NO)
-    {
-        self.currentFrame.copyTo(leftImage);
-        leftImageSaved = YES;
-        
-        self.shouldProcessFrames = YES;
-    }
-    else
-    {
-        self.currentFrame.copyTo(rightImage);
-        [self computeDepthMap];
-        
-        [self presentResultViewController];
-        
-        leftImageSaved = NO;
-    }
+    [self computeDepthMap];
+    
+    [self presentResultViewController];
 }
 
 - (void)computeDepthMap
 {
     //[self computeDepthMapStereoBM];
-    [self computeDepthMapOpticalFlow];
+    //[self computeDepthMapOpticalFlow];
+    
+    [self computeDepthMapOpticalFlowWithImages];
 }
 
 - (void)computeDepthMapStereoBM
@@ -107,34 +113,51 @@
     
     calcOpticalFlowFarneback(leftImage, rightImage, flow, 0.5, 3, 15, 3, 5, 1.2, 0 );
     
-    Scalar color = Scalar(255);
-    
-    for (int y = 0; y < flow.rows; y += 20)
-    {
-        for (int x = 0; x < flow.cols; x += 20)
-        {
-            Point2f point = flow.at<Point2f>(y, x);
-            
-            arrowedLine(leftImage,
-                        Point2f(x, y),
-                        Point2f((int)(x + point.x), (int)(y + point.y)),
-                        color);
-        }
-    }
-    
-//    // Separate flow mat. Preparing for cartToPolar
-//    vector<Mat> flowPlanes;
-//    split(flow, flowPlanes);
+//    Scalar color = Scalar(255);
 //    
-//    Mat magnitudes;
-//    Mat angles;
+//    for (int y = 0; y < flow.rows; y += 20)
+//    {
+//        for (int x = 0; x < flow.cols; x += 20)
+//        {
+//            Point2f point = flow.at<Point2f>(y, x);
+//            
+//            arrowedLine(rightImage,
+//                        Point2f(x, y),
+//                        Point2f((int)(x + point.x), (int)(y + point.y)),
+//                        color);
+//        }
+//    }
 //    
-//    Mat resultImage = Mat(leftImage.rows, leftImage.cols, CV_8UC1);
-//    cartToPolar(flowPlanes[0], flowPlanes[1], magnitudes, angles);
-//    normalize(magnitudes, resultImage, 0, 255, CV_MINMAX, CV_8U);
-//    resultImage.copyTo(self.currentFrame);
+//    rightImage.copyTo(self.currentFrame);
     
-    leftImage.copyTo(self.currentFrame);
+    // Separate flow mat. Preparing for cartToPolar
+    vector<Mat> flowPlanes;
+    split(flow, flowPlanes);
+    
+    Mat magnitudes;
+    Mat angles;
+    
+    Mat resultImage = Mat(leftImage.rows, leftImage.cols, CV_8UC1);
+    cartToPolar(flowPlanes[0], flowPlanes[1], magnitudes, angles);
+    normalize(magnitudes, resultImage, 0, 255, CV_MINMAX, CV_8U);
+    resultImage.copyTo(self.currentFrame);
+    
+    
+}
+
+- (void)computeDepthMapOpticalFlowWithImages
+{
+    UIImage *firstImage = [UIImage imageNamed:@"test_1"];
+    UIImage *secondImage = [UIImage imageNamed:@"test_2"];
+    
+    NSLog(@"%f %f", firstImage.size.width, firstImage.size.height);
+
+    
+    UIImageToMat(firstImage, leftImage);
+    UIImageToMat(secondImage, rightImage);
+    
+    [self computeDepthMapOpticalFlow];
+    //[self computeDepthMapStereoBM];
 }
 
 @end

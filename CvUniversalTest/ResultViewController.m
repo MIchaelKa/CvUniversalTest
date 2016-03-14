@@ -10,7 +10,7 @@
 
 #import "UIButton+CircularStyle.h"
 
-@interface ResultViewController ()
+@interface ResultViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *resultScrollView;
 
@@ -27,19 +27,27 @@
 
 - (void)setResultImageView:(UIImageView *)resultImageView
 {
+    _resultImageView = resultImageView;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.resultScrollView.minimumZoomScale = 0.2;
-        self.resultScrollView.maximumZoomScale = 2.0;
         self.resultScrollView.contentSize = resultImageView.image.size;
-        
         [self.resultScrollView addSubview: resultImageView];
     });
+}
+
+- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.resultImageView;
 }
 
 - (void)setupUI
 {
     [self setNeedsStatusBarAppearanceUpdate];
     self.view.backgroundColor = [UIColor blackColor];
+    
+    self.resultScrollView.minimumZoomScale = 0.2;
+    self.resultScrollView.maximumZoomScale = 2.0;
+    
+    self.resultScrollView.delegate = self;
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
