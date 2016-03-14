@@ -144,7 +144,6 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (void)cameraViewControllerDidFinishedWithCompletion:(void (^)(void))completion
 {
-    [self.testViewController dismissViewControllerAnimated: YES completion: completion];
     self.testViewController.delegate = nil;
     self.testViewController = nil;
 }

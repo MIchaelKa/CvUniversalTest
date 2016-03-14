@@ -246,11 +246,11 @@
     self.shouldProcessFrames = NO;
     
     [self.videoCamera stop];
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:NO];    
     
-//    [self.delegate cameraViewControllerDidFinishedWithCompletion:^{
-//        [self.videoCamera stop];
-//    }];    
+    [self.delegate cameraViewControllerDidFinishedWithCompletion:^{
+        
+    }];    
 }
 
 - (void)startButtonAction

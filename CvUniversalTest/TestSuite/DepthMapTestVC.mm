@@ -33,6 +33,12 @@
     self.resultImages = [NSMutableArray array];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.resultImages removeAllObjects];
+}
+
 #pragma mark - UI
 
 - (void)setupUI
