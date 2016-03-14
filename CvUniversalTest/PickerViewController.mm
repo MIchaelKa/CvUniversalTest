@@ -56,9 +56,7 @@
 
 - (IBAction)tap:(UITapGestureRecognizer *)sender
 {
-    [self presentViewController: self.testViewController
-                       animated: YES
-                     completion: nil];
+    [self.navigationController pushViewController:self.testViewController animated:NO];
 }
 
 - (CameraViewController*)testViewController

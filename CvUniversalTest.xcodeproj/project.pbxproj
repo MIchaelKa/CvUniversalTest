@@ -33,6 +33,7 @@
 		4C635FBF1A192EA300164608 /* UIStoryboard+CvTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C635FBE1A192EA300164608 /* UIStoryboard+CvTest.m */; };
 		4C75CBFE1A28581A00DC60D5 /* PointConvertor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C75CBFD1A28581A00DC60D5 /* PointConvertor.mm */; };
 		4C791CC61B2EFA7D00F92334 /* DynamicResultView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C791CC51B2EFA7D00F92334 /* DynamicResultView.mm */; };
+		4CA025361C96B0D100397A5A /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA025351C96B0D100397A5A /* libjpeg.a */; };
 		4CA691521A1A763300AF679D /* FindContoursController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691511A1A763300AF679D /* FindContoursController.mm */; };
 		4CA691551A1A780700AF679D /* SimpleTestController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691541A1A780700AF679D /* SimpleTestController.mm */; };
 		4CA691581A1A7C2E00AF679D /* TrackObjectController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA691571A1A7C2E00AF679D /* TrackObjectController.mm */; };
@@ -85,6 +86,7 @@
 		4C75CBFD1A28581A00DC60D5 /* PointConvertor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PointConvertor.mm; sourceTree = "<group>"; };
 		4C791CC41B2EFA7D00F92334 /* DynamicResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicResultView.h; sourceTree = "<group>"; };
 		4C791CC51B2EFA7D00F92334 /* DynamicResultView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DynamicResultView.mm; sourceTree = "<group>"; };
+		4CA025351C96B0D100397A5A /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
 		4CA691501A1A763300AF679D /* FindContoursController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindContoursController.h; sourceTree = "<group>"; };
 		4CA691511A1A763300AF679D /* FindContoursController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FindContoursController.mm; sourceTree = "<group>"; };
 		4CA691531A1A780700AF679D /* SimpleTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTestController.h; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CA025361C96B0D100397A5A /* libjpeg.a in Frameworks */,
 				4C0E022219F983BE00EF0736 /* CoreMedia.framework in Frameworks */,
 				4C0E022019F983A700EF0736 /* AssetsLibrary.framework in Frameworks */,
 				4C0E021E19F9839300EF0736 /* AVFoundation.framework in Frameworks */,
@@ -172,6 +175,7 @@
 		4C0E021919F9715100EF0736 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4CA025351C96B0D100397A5A /* libjpeg.a */,
 				4C0E022119F983BE00EF0736 /* CoreMedia.framework */,
 				4C0E021F19F983A700EF0736 /* AssetsLibrary.framework */,
 				4C0E021D19F9839300EF0736 /* AVFoundation.framework */,
@@ -530,6 +534,10 @@
 				);
 				INFOPLIST_FILE = CvUniversalTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "Cv Test";
 			};
 			name = Debug;
@@ -547,6 +555,10 @@
 				);
 				INFOPLIST_FILE = CvUniversalTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "Cv Test";
 			};
 			name = Release;
