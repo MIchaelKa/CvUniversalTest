@@ -28,8 +28,7 @@
 {
     [super viewDidLoad];
     
-    leftImageSaved = NO;
-    
+    leftImageSaved = NO;    
     self.resultImages = [NSMutableArray array];
 }
 
@@ -71,43 +70,18 @@
 
 - (void)startButtonAction
 {
-//    self.shouldProcessFrames = NO;
-//    
-//    if (leftImageSaved == NO)
-//    {
-//        self.currentFrame.copyTo(leftImage);
-//        leftImageSaved = YES;
-//        
-//        self.shouldProcessFrames = YES;
-//    }
-//    else
-//    {
-//        self.currentFrame.copyTo(rightImage);
-//        [self computeDepthMap];
-//        
-//        [self presentResultViewController];
-//        
-//        leftImageSaved = NO;
-//    }
-    
     [self computeDepthMap];
-    
     [self presentResultBrowser];
 }
 
 - (void)computeDepthMap
 {
-    //[self computeDepthMapStereoBM];
-    //[self computeDepthMapOpticalFlow];
     
     [self computeDepthMapOpticalFlowWithImages];
 }
 
 - (void)computeDepthMapStereoBM
 {
-    cv::cvtColor(leftImage, leftImage, CV_BGR2GRAY);
-    cv::cvtColor(rightImage, rightImage, CV_BGR2GRAY);
-    
     // Call the constructor for StereoBM
     int ndisparities = 112; // Range of disparity
     int SADWindowSize = 9; // Size of the block window. Must be odd
@@ -130,7 +104,7 @@
     sbm(leftImage, rightImage, imgDisparity16S);
     normalize(imgDisparity16S, imgDisparity8U, 0, 255, CV_MINMAX, CV_8U);
     
-    imgDisparity8U.copyTo(self.currentFrame);
+    [self.resultImages addObject:[MWPhoto photoWithImage:MatToUIImage(imgDisparity8U)]];
 }
 
 - (void)computeDepthMapOpticalFlow
@@ -142,22 +116,24 @@
     
     calcOpticalFlowFarneback(leftImage, rightImage, flow, 0.5, 3, 15, 3, 5, 1.2, 0 );
     
-//    Scalar color = Scalar(255);
-//    
-//    for (int y = 0; y < flow.rows; y += 20)
-//    {
-//        for (int x = 0; x < flow.cols; x += 20)
-//        {
-//            Point2f point = flow.at<Point2f>(y, x);
-//            
-//            arrowedLine(rightImage,
-//                        Point2f(x, y),
-//                        Point2f((int)(x + point.x), (int)(y + point.y)),
-//                        color);
-//        }
-//    }
-//    
-//    rightImage.copyTo(self.currentFrame);
+    // Draw optical flow
+    Scalar color = Scalar(255);
+    Mat arrowResultImage = Mat(rightImage);
+    
+    for (int y = 0; y < flow.rows; y += 20)
+    {
+        for (int x = 0; x < flow.cols; x += 20)
+        {
+            Point2f point = flow.at<Point2f>(y, x);
+            
+            arrowedLine(arrowResultImage,
+                        Point2f(x, y),
+                        Point2f((int)(x + point.x), (int)(y + point.y)),
+                        color);
+        }
+    }
+    
+    [self.resultImages addObject:[MWPhoto photoWithImage:MatToUIImage(arrowResultImage)]];
     
     // Separate flow mat. Preparing for cartToPolar
     vector<Mat> flowPlanes;
@@ -182,13 +158,12 @@
     [self.resultImages addObject:[MWPhoto photoWithImage:secondImage]];
     
     NSLog(@"%f %f", firstImage.size.width, firstImage.size.height);
-
     
     UIImageToMat(firstImage, leftImage);
     UIImageToMat(secondImage, rightImage);
     
     [self computeDepthMapOpticalFlow];
-    //[self computeDepthMapStereoBM];
+    [self computeDepthMapStereoBM];
 }
 
 #pragma mark - MWPhotoBrowserDelegate
