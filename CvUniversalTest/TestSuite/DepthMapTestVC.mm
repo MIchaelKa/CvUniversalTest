@@ -8,13 +8,17 @@
 
 #import "DepthMapTestVC.h"
 
-@interface DepthMapTestVC ()
+#import "MWPhotoBrowser.h"
+
+@interface DepthMapTestVC () <MWPhotoBrowserDelegate>
 {
     Mat leftImage;
     Mat rightImage;
     
     BOOL leftImageSaved;
 }
+
+@property (nonatomic, strong) NSMutableArray *resultImages;
 
 @end
 
@@ -25,6 +29,8 @@
     [super viewDidLoad];
     
     leftImageSaved = NO;
+    
+    self.resultImages = [NSMutableArray array];
 }
 
 #pragma mark - UI
@@ -38,6 +44,23 @@
                         self.undoButton,
                         self.startButton                        
                         ]];
+}
+
+- (void)presentResultBrowser
+{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    
+    // Set options
+    browser.displayActionButton = YES;    // Show action button to allow sharing, copying, etc (defaults to YES)
+    browser.displayNavArrows = NO;        // Whether to display left and right nav arrows on toolbar (defaults to NO)
+    browser.displaySelectionButtons = NO; // Whether selection buttons are shown on each image (defaults to NO)
+    browser.zoomPhotosToFill = YES;       // Images that almost fill the screen will be initially zoomed to fill (defaults to YES)
+    browser.alwaysShowControls = NO;      // Allows to control whether the bars and controls are always visible or whether they fade away to show the photo full (defaults to NO)
+    browser.enableGrid = YES;             // Whether to allow the viewing of all the photo thumbnails on a grid (defaults to YES)
+    browser.startOnGrid = NO;             // Whether to start on the grid of thumbnails instead of the first photo (defaults to NO)
+    browser.autoPlayOnAppear = NO;        // Auto-play first video
+    
+    [self.navigationController pushViewController:browser animated:YES];
 }
 
 - (void)startButtonAction
@@ -63,7 +86,7 @@
     
     [self computeDepthMap];
     
-    [self presentResultViewController];
+    [self presentResultBrowser];
 }
 
 - (void)computeDepthMap
@@ -140,15 +163,17 @@
     Mat resultImage = Mat(leftImage.rows, leftImage.cols, CV_8UC1);
     cartToPolar(flowPlanes[0], flowPlanes[1], magnitudes, angles);
     normalize(magnitudes, resultImage, 0, 255, CV_MINMAX, CV_8U);
-    resultImage.copyTo(self.currentFrame);
     
-    
+    [self.resultImages addObject:[MWPhoto photoWithImage:MatToUIImage(resultImage)]];
 }
 
 - (void)computeDepthMapOpticalFlowWithImages
 {
     UIImage *firstImage = [UIImage imageNamed:@"test_1"];
     UIImage *secondImage = [UIImage imageNamed:@"test_2"];
+    
+    [self.resultImages addObject:[MWPhoto photoWithImage:firstImage]];
+    [self.resultImages addObject:[MWPhoto photoWithImage:secondImage]];
     
     NSLog(@"%f %f", firstImage.size.width, firstImage.size.height);
 
@@ -159,5 +184,20 @@
     [self computeDepthMapOpticalFlow];
     //[self computeDepthMapStereoBM];
 }
+
+#pragma mark - MWPhotoBrowserDelegate
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.resultImages.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < self.resultImages.count) {
+        return [self.resultImages objectAtIndex:index];
+    }
+    return nil;
+}
+
+
 
 @end
