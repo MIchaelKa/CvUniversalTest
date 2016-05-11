@@ -9,6 +9,7 @@
 #import "DepthMapTestVC.h"
 
 #import "MWPhotoBrowser.h"
+#import "ResultModelViewController.h"
 
 @interface DepthMapTestVC () <MWPhotoBrowserDelegate>
 {
@@ -68,10 +69,18 @@
     [self.navigationController pushViewController:browser animated:NO];
 }
 
+- (void)presentResultModelViewController
+{
+    ResultModelViewController *resultModelViewController = [[ResultModelViewController alloc] init];
+    [self.navigationController pushViewController:resultModelViewController animated:NO];
+    
+}
+
 - (void)startButtonAction
 {
-    [self computeDepthMap];
-    [self presentResultBrowser];
+    //[self computeDepthMap];
+    //[self presentResultBrowser];
+    [self presentResultModelViewController];
 }
 
 - (void)computeDepthMap
@@ -116,6 +125,9 @@
     
     calcOpticalFlowFarneback(leftImage, rightImage, flow, 0.5, 3, 15, 3, 5, 1.2, 0 );
     
+    NSLog(@"Left image rows: %d cols: %d", leftImage.rows, leftImage.cols);
+    NSLog(@"Flow: %d cols: %d", flow.rows, flow.cols);
+    
     // Draw optical flow
     Scalar color = Scalar(255);
     Mat arrowResultImage = Mat(rightImage);
@@ -139,11 +151,44 @@
     vector<Mat> flowPlanes;
     split(flow, flowPlanes);
     
+    NSLog(@"flowPlanes[0]: %d cols: %d", flowPlanes[0].rows, flowPlanes[0].cols);
+    NSLog(@"flowPlanes[1]: %d cols: %d", flowPlanes[1].rows, flowPlanes[1].cols);
+    
     Mat magnitudes;
     Mat angles;
     
     Mat resultImage = Mat(leftImage.rows, leftImage.cols, CV_8UC1);
     cartToPolar(flowPlanes[0], flowPlanes[1], magnitudes, angles);
+    
+    NSLog(@"Magnitudes: %d cols: %d", magnitudes.rows, magnitudes.cols);
+    
+    int f = 300;
+    int B = 1;
+    int W = magnitudes.cols;
+    int H = magnitudes.rows;
+    
+    Mat edges = [self cannyEdgeDetection: leftImage];
+    [self.resultImages addObject:[MWPhoto photoWithImage:MatToUIImage(edges)]];
+
+    
+    for (int y = 0; y < magnitudes.rows; y++)
+    {
+        for (int x = 0; x < magnitudes.cols; x++)
+        {
+            char edge = edges.at<char>(y, x);
+            float delta = magnitudes.at<float>(y, x);
+            
+            if (edge != 0) {
+                float Z = (B * f) / delta;
+                float X = (Z * (x - W / 2.)) / f;
+                float Y = (Z * (y - H / 2.)) / f;
+                
+                //MyLog(@"v %.6f %.6f %.6f", X, Y, Z);
+            }
+        }
+    }
+
+    
     normalize(magnitudes, resultImage, 0, 255, CV_MINMAX, CV_8U);
     
     [self.resultImages addObject:[MWPhoto photoWithImage:MatToUIImage(resultImage)]];
@@ -184,6 +229,30 @@
         return [self.resultImages objectAtIndex:index];
     }
     return nil;
+}
+
+#pragma mark - Helpers
+
+- (cv::Mat)cannyEdgeDetection: (cv::Mat&)image
+{
+    int thresh = 500;
+    
+    cv::Mat edges;
+    cv::Canny(image, edges, thresh, thresh * 3, 5);
+    
+    return edges;
+}
+
+void MyLog(NSString *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    NSString *formattedString = [[NSString alloc] initWithFormat: format
+                                                       arguments: args];
+    NSString *finalString = [NSString stringWithFormat:@"%@\n",formattedString];
+    
+    va_end(args);
+    [[NSFileHandle fileHandleWithStandardOutput] writeData: [finalString dataUsingEncoding: NSNEXTSTEPStringEncoding]];
 }
 
 @end
