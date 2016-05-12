@@ -16,10 +16,10 @@
 
 
 static const GLfloat squareVertices[] = {
-    -0.5f, -0.5f, -1.0f,
-    0.5f, -0.5f, -1.0f,
-    0.5f,  0.5f, -1.0f,
-    -0.5f, 0.5f,  -1.0f
+    -0.1f, -0.1f, 0.0f,
+    0.1f, -0.1f, 0.0f,
+    0.1f,  0.1f, 0.0f,
+    -0.1f, 0.1f,  0.0f
 };
 
 @interface ResultModelViewController()
@@ -31,6 +31,15 @@ static const GLfloat squareVertices[] = {
 
 // Uniform Handles
 @property (readwrite) GLint uProjectionMatrix;
+@property (readwrite) GLint uRotationMatrix;
+
+@property (nonatomic) GLKMatrix4 savedModelViewMatrix;
+
+@property (nonatomic) CGPoint startPanningPoint;
+
+@property (nonatomic) float rotationValueAxisX;
+@property (nonatomic) float rotationValueAxisY;
+@property (nonatomic) float rotationValueAxisZ;
 
 
 @end
@@ -45,6 +54,15 @@ static const GLfloat squareVertices[] = {
     
     [self loadParticles];
     [self loadShader];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+    [self.view addGestureRecognizer:panGesture];
+    
+    self.rotationValueAxisX = 0.0;
+    self.rotationValueAxisY = 0.0;
+    self.rotationValueAxisZ = 0.0;
+    
+    self.savedModelViewMatrix = GLKMatrix4MakeScale(1.0, 1.0, 1.0);
 }
 
 - (void)setupGL
@@ -86,8 +104,72 @@ static const GLfloat squareVertices[] = {
     
     // Uniforms
     self.uProjectionMatrix = glGetUniformLocation(self.program, "uProjectionMatrix");
+    self.uRotationMatrix = glGetUniformLocation(self.program, "uRotationMatrix");
+    
     
     glUseProgram(self.program);
+}
+
+- (void)makeRotation
+{
+    bool isInvertible;
+    
+    // x
+    GLKVector3 xAxis = GLKMatrix4MultiplyVector3(GLKMatrix4Invert(self.savedModelViewMatrix, &isInvertible),
+                                                 GLKVector3Make(1, 0, 0));
+    self.savedModelViewMatrix = GLKMatrix4Rotate(
+                                                 self.savedModelViewMatrix,
+                                                 GLKMathDegreesToRadians(self.rotationValueAxisX),
+                                                 xAxis.x, xAxis.y, xAxis.z);
+    
+    // y
+    GLKVector3 yAxis = GLKMatrix4MultiplyVector3(GLKMatrix4Invert(self.savedModelViewMatrix, &isInvertible),
+                                                 GLKVector3Make(0, 1, 0));
+    self.savedModelViewMatrix = GLKMatrix4Rotate(
+                                                 self.savedModelViewMatrix,
+                                                 GLKMathDegreesToRadians(self.rotationValueAxisY),
+                                                 yAxis.x, yAxis.y, yAxis.z);
+}
+
+- (void)pan:(UIPanGestureRecognizer *)sender
+{
+    CGPoint gesturePoint = [sender locationInView: self.view];
+    
+    switch (sender.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
+            self.startPanningPoint = gesturePoint;
+            break;
+        }
+        case UIGestureRecognizerStateChanged:
+        {
+            [self setUserRotation: gesturePoint];
+            [self makeRotation];
+
+            break;
+        }
+        case UIGestureRecognizerStateEnded:
+        {
+            [self setUserRotation: gesturePoint];
+            [self makeRotation];
+            
+            self.rotationValueAxisX = 0.0;
+            self.rotationValueAxisY = 0.0;
+            self.rotationValueAxisZ = 0.0;
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+}
+
+- (void) setUserRotation: (CGPoint)endPanningPoint
+{
+    self.rotationValueAxisX = -(endPanningPoint.y - self.startPanningPoint.y) / 4.0;
+    self.rotationValueAxisY = -(endPanningPoint.x - self.startPanningPoint.x) / 4.0;
 }
 
 
@@ -98,9 +180,13 @@ static const GLfloat squareVertices[] = {
     // Create Projection Matrix
     float aspectRatio = view.frame.size.width / view.frame.size.height;
     GLKMatrix4 projectionMatrix = GLKMatrix4MakeScale(1.0f, aspectRatio, 1.0f);
+    
+    // Create Rotation Matrix
+    GLKMatrix4 rotationMatrix = self.savedModelViewMatrix;
 
     // Uniforms
     glUniformMatrix4fv(self.uProjectionMatrix, 1, 0, projectionMatrix.m);
+    glUniformMatrix4fv(self.uRotationMatrix, 1, 0, rotationMatrix.m);
 
     // Draw particles
     glDrawArrays(GL_POINTS, 0, 4);
