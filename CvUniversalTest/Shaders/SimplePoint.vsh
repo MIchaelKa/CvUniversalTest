@@ -14,7 +14,7 @@ void main(void)
     final_position = uProjectionMatrix * position;
     
     gl_Position = uRotationMatrix * final_position;
-    gl_PointSize = 16.0;
+    gl_PointSize = 10.0;
 }
  
 );

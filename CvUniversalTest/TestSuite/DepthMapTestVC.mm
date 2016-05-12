@@ -20,6 +20,7 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *resultImages;
+@property (nonatomic, strong) NSMutableArray *resultPoints;
 
 @end
 
@@ -72,13 +73,14 @@
 - (void)presentResultModelViewController
 {
     ResultModelViewController *resultModelViewController = [[ResultModelViewController alloc] init];
+    resultModelViewController.points = self.resultPoints;
     [self.navigationController pushViewController:resultModelViewController animated:NO];
     
 }
 
 - (void)startButtonAction
 {
-    //[self computeDepthMap];
+    [self computeDepthMap];
     //[self presentResultBrowser];
     [self presentResultModelViewController];
 }
@@ -170,6 +172,7 @@
     Mat edges = [self cannyEdgeDetection: leftImage];
     [self.resultImages addObject:[MWPhoto photoWithImage:MatToUIImage(edges)]];
 
+    self.resultPoints = [NSMutableArray array];
     
     for (int y = 0; y < magnitudes.rows; y++)
     {
@@ -183,11 +186,19 @@
                 float X = (Z * (x - W / 2.)) / f;
                 float Y = (Z * (y - H / 2.)) / f;
                 
+                float topBound = 1000.0;
+                
+                if (X < topBound && Y < topBound && Z < topBound)
+                {
+                    [self.resultPoints addObject:@(X)];
+                    [self.resultPoints addObject:@(Y)];
+                    [self.resultPoints addObject:@(Z)];
+                }
+                
                 //MyLog(@"v %.6f %.6f %.6f", X, Y, Z);
             }
         }
     }
-
     
     normalize(magnitudes, resultImage, 0, 255, CV_MINMAX, CV_8U);
     

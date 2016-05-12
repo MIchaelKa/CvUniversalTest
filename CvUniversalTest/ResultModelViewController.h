@@ -11,4 +11,6 @@
 
 @interface ResultModelViewController : GLKViewController
 
+@property (nonatomic, strong) NSArray *points;
+
 @end

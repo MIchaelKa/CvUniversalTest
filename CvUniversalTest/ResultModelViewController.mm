@@ -23,6 +23,9 @@ static const GLfloat squareVertices[] = {
 };
 
 @interface ResultModelViewController()
+{
+    float *finalResultPointArray;
+}
 
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -50,6 +53,8 @@ static const GLfloat squareVertices[] = {
 {
     [super viewDidLoad];
     
+    [self preparePoints];
+    
     [self setupGL];
     
     [self loadParticles];
@@ -63,6 +68,31 @@ static const GLfloat squareVertices[] = {
     self.rotationValueAxisZ = 0.0;
     
     self.savedModelViewMatrix = GLKMatrix4MakeScale(1.0, 1.0, 1.0);
+}
+
+- (void)preparePoints
+{
+    if (self.points)
+    {
+        float max = 0.0;
+        
+        for (NSNumber *num in self.points)
+        {
+            float current = std::abs([num floatValue]);
+            if (current > max) {
+                max = current;
+            }
+        }
+        
+        NSLog(@"Max : %f", max);
+        
+        finalResultPointArray = new float [[self.points count]];
+        for (NSInteger i = 0; i < [self.points count]; i++)
+        {
+            finalResultPointArray[i] = [self.points[i] floatValue];
+        }
+    }
+    
 }
 
 - (void)setupGL
@@ -84,8 +114,8 @@ static const GLfloat squareVertices[] = {
     glBindBuffer(GL_ARRAY_BUFFER, particleBuffer);      // Bind particle buffer
     glBufferData(                                       // Fill bound buffer with particles
                  GL_ARRAY_BUFFER,                       // Buffer type (vertices/particles)
-                 sizeof(squareVertices),                // Buffer data size
-                 squareVertices,                        // Buffer data pointer
+                 sizeof(finalResultPointArray),                // Buffer data size
+                 finalResultPointArray,                        // Buffer data pointer
                  GL_STATIC_DRAW);                       // Data never changes
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
@@ -189,7 +219,7 @@ static const GLfloat squareVertices[] = {
     glUniformMatrix4fv(self.uRotationMatrix, 1, 0, rotationMatrix.m);
 
     // Draw particles
-    glDrawArrays(GL_POINTS, 0, 4);
+    glDrawArrays(GL_POINTS, 0, 300);
 }
 
 @end
